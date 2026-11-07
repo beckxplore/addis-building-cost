@@ -324,6 +324,7 @@ table.boq td.src{font-size:11.5px;color:var(--xmut);max-width:240px}
 
     <h2 class="sec-h" id="t_cards_h">ሦስቱ ደረጃዎች ምን ያካትታሉ?</h2>
     <section class="grid3" id="cards"></section>
+    <section class="card" id="mktCmpCard" style="border-left:5px solid #2563eb"></section>
   </div>
 
   <!-- ===================== TAB 2: RENT ===================== -->
@@ -563,65 +564,65 @@ table.boq td.src{font-size:11.5px;color:var(--xmut);max-width:240px}
 const AS_OF = {y:2026, m:9}; // October 2026 (0-based month)
 const PR = {
   // ---- grey structure ----
-  site:{n:'Site establishment & running (hoarding, guards, water, power, small tools)',na:'የግንባታ ቦታ ዝግጅት (አጥር፣ ጥበቃ፣ ጊዜያዊ ውሃና መብራት፣ መጋዘን)',u:'lump',ua:'በጥቅል',p:2500000,imp:0.1,s:'Allowance ≈ 2–3% of structure',sa:'ከግንባታው 2–3% ግምት'},
-  geo:{n:'Geotechnical investigation & surveying',na:'የአፈር ምርመራ (Soil Test) እና ቅየሳ',u:'lump',ua:'በጥቅል',p:300000,imp:0,s:'Typical consultant quote',sa:'የአማካሪ ድርጅቶች ተመን'},
-  excav:{n:'Excavation & cart-away (machine)',na:'የአፈር ቁፋሮ እና አፈር ማጓጓዝ (በማሽን)',u:'m³',ua:'ሜ³',p:850,imp:0.3,s:'Excavator + truck haulage, Addis 2026',sa:'ኤክስካቫተር እና ገልባጭ መኪና (2019 ዓ.ም.)'},
-  shoring:{n:'Shoring & dewatering for basement',na:'የምድር ቤት የጎን መደገፊያ (Shoring) እና ውሃ ማውጣት',u:'m²',ua:'ካ.ሜ',p:2500,imp:0.2,s:'Allowance per m² of basement wall',sa:'ለጎረቤት ሕንፃዎች መከላከያ (በካ.ሜ)'},
-  hardcore:{n:'Hardcore / gravel 02–03 under slab',na:'የድንጋይ ገበር (Hardcore) እና ጠጠር 02–03',u:'m³',ua:'ሜ³',p:3800,imp:0.1,s:'Gravel 3,500–5,070 ETB/m³',sa:'ጠጠር ከ 3,500–5,070 ብር/ሜ³'},
-  blinding:{n:'Blinding concrete C15',na:'የስር ንጣፍ ኮንክሪት (Lean Concrete C15)',u:'m³',ua:'ሜ³',p:13000,imp:0.2,s:'Ready-mix C15 ≈ 12–14k/m³',sa:'C15 ኮንክሪት 12–14 ሺህ ብር/ሜ³'},
-  concrete:{n:'Ready-mix concrete C25/C30 (foundation, columns, beams, slabs, walls)',na:'ሬዲ-ሚክስ ኮንክሪት C25/C30 (ለመሠረት፣ ኮለን፣ ቢም፣ ሶሌታና የምድር ቤት ግድግዳ)',u:'m³',ua:'ሜ³',p:16500,imp:0.25,s:'C25: 12,700–18,600 ETB/m³ (+VAT)',sa:'C25 ከ 12,700–18,600 ብር/ሜ³ (ቫት ጨምሮ)'},
-  pump:{n:'Concrete pumping',na:'የኮንክሪት ፓምፕ ኪራይ',u:'m³',ua:'ሜ³',p:1400,imp:0.3,s:'1,200–1,600 ETB/m³',sa:'ከ 1,200–1,600 ብር/ሜ³'},
-  rebar:{n:'Reinforcement bar Grade 60, Ø8–Ø24 (incl. binding wire)',na:'የፌሮ ብረት Grade 60፣ Ø8–Ø24 (የማሰሪያ ሽቦ ጨምሮ)',u:'kg',ua:'ኪ.ግ',p:155,imp:0.6,s:'Mercato: 12 mm bar ≈ 1,864 ETB (~175/kg retail); bulk cheaper',sa:'መርካቶ/አጠና ተራ ባለ 12 ሚ.ሜ ≈ 1,864 ብር (~155 ብር/ኪ.ግ በጅምላ)'},
-  formwork:{n:'Formwork materials (plywood, timber, steel props rental)',na:'የፎርምዎርክ ዕቃዎች (ፓነል፣ ጣውላ፣ የብረት ቋሚ/ፕሮፕ ኪራይ)',u:'m²',ua:'ካ.ሜ',p:550,imp:0.3,s:'Plywood 12 mm ≈ 1,350/sheet; prop rental',sa:'ፓነል ~1,350 ብር + የብረት ቋሚ ኪራይ'},
-  scaffold:{n:'Scaffolding rental & safety (per m² facade)',na:'የስካፎልዲንግ (መወጣጫ) ኪራይ እና የደህንነት መረብ',u:'m²',ua:'ካ.ሜ',p:350,imp:0.2,s:'H-frame rental',sa:'የብረት መወጣጫ ኪራይ'},
-  hcb:{n:'HCB hollow concrete blocks 20 cm, Class C',na:'ብሎኬት (HCB) ባለ 20 ሴ.ሜ Class-C',u:'pcs',ua:'ፍሬ',p:38,imp:0.1,s:'Factory price up to ~40 ETB incl. VAT',sa:'የፋብሪካ ዋጋ እስከ 40 ብር (ቫት ጨምሮ)'},
-  cement:{n:'Cement OPC/PPC (50 kg × 2 = 1 quintal)',na:'ሲሚንቶ OPC/PPC (1 ኩንታል = 2 ከረጢት)',u:'quintal',ua:'ኩንታል',p:1900,imp:0.15,s:'Derba/Dangote 1,750–2,400 ETB/quintal',sa:'ደርባ/ዳንጎቴ ከ 1,750–2,400 ብር/ኩንታል'},
-  sand:{n:'Sand, delivered',na:'አሸዋ (ቦታው ድረስ የቀረበ)',u:'m³',ua:'ሜ³',p:5200,imp:0.05,s:'2,800–6,560 ETB/m³ depending on grade',sa:'ከ 2,800–6,560 ብር/ሜ³ እንደ ጥራቱ'},
-  waterproof:{n:'Waterproofing membrane (basement walls/floor & roof)',na:'የውሃ መከላከያ (Waterproofing - ለምድር ቤት እና ለጣሪያ)',u:'m²',ua:'ካ.ሜ',p:1300,imp:0.6,s:'Bituminous membrane, laid',sa:'ሜምብሬን ከነማንጠፊያው'},
-  labor:{n:'Structural labor-only contract (formwork, rebar fixing, casting, masonry)',na:'የስትራክቸር የእጅ ዋጋ ኮንትራት (ፎርምዎርክ፣ ብረት ማሰር፣ ኮንክሪት መሙላት፣ ግንበኝነት)',u:'m² GFA',ua:'ካ.ሜ',p:7000,imp:0,s:'Labor-only carcass 6,000–10,000 ETB/m²',sa:'የእጅ ዋጋ ብቻ ከ 6,000–10,000 ብር/ካ.ሜ'},
+  site:{n:'Site establishment & running (hoarding, guards, water, power, small tools)',na:'የግንባታ ቦታ ዝግጅት (አጥር፣ ጥበቃ፣ ጊዜያዊ ውሃና መብራት፣ መጋዘን)',u:'lump',ua:'በጥቅል',p:1200000,imp:0.1,s:'Scaled by building size (~1.5–2% of structure)',sa:'እንደ ሕንፃው ስፋት (~1.5–2% ግምት)'},
+  geo:{n:'Geotechnical investigation & surveying',na:'የአፈር ምርመራ (Soil Test) እና ቅየሳ',u:'lump',ua:'በጥቅል',p:220000,imp:0,s:'Scaled by building height (pits vs boreholes)',sa:'እንደ ወለሉ ብዛት የሚለያይ የአማካሪ ተመን'},
+  excav:{n:'Excavation & cart-away (machine)',na:'የአፈር ቁፋሮ እና አፈር ማጓጓዝ (በማሽን)',u:'m³',ua:'ሜ³',p:750,imp:0.3,s:'Excavator + truck haulage, Addis 2026',sa:'ኤክስካቫተር እና ገልባጭ መኪና (2019 ዓ.ም.)'},
+  shoring:{n:'Shoring & dewatering for basement',na:'የምድር ቤት የጎን መደገፊያ (Shoring) እና ውሃ ማውጣት',u:'m²',ua:'ካ.ሜ',p:2200,imp:0.2,s:'Allowance per m² of basement wall',sa:'ለጎረቤት ሕንፃዎች መከላከያ (በካ.ሜ)'},
+  hardcore:{n:'Hardcore / gravel 02–03 under slab',na:'የድንጋይ ገበር (Hardcore) እና ጠጠር 02–03',u:'m³',ua:'ሜ³',p:3500,imp:0.1,s:'Gravel 3,200–4,800 ETB/m³',sa:'ጠጠር ከ 3,200–4,800 ብር/ሜ³'},
+  blinding:{n:'Blinding concrete C15',na:'የስር ንጣፍ ኮንክሪት (Lean Concrete C15)',u:'m³',ua:'ሜ³',p:11500,imp:0.2,s:'C15 ≈ 11–13k/m³',sa:'C15 ኮንክሪት 11–13 ሺህ ብር/ሜ³'},
+  concrete:{n:'Structural concrete C25/C30 (foundation, columns, beams, slabs, walls)',na:'የስትራክቸር ኮንክሪት C25/C30 (ለመሠረት፣ ኮለን፣ ቢም፣ ሶሌታና የምድር ቤት ግድግዳ)',u:'m³',ua:'ሜ³',p:14200,imp:0.25,s:'Addis 2026: site-mix/ready-mix C25 avg 13–15.5k/m³',sa:'C25 ኮንክሪት አማካይ 13–15.5 ሺህ ብር/ሜ³'},
+  pump:{n:'Concrete pumping',na:'የኮንክሪት ፓምፕ ኪራይ',u:'m³',ua:'ሜ³',p:1200,imp:0.3,s:'1,000–1,400 ETB/m³ pumped',sa:'ከ 1,000–1,400 ብር/ሜ³'},
+  rebar:{n:'Reinforcement bar Grade 60, Ø8–Ø24 (incl. binding wire)',na:'የፌሮ ብረት Grade 60፣ Ø8–Ø24 (የማሰሪያ ሽቦ ጨምሮ)',u:'kg',ua:'ኪ.ግ',p:150,imp:0.6,s:'Mercato: 12 mm bar ≈ 1,864 ETB; bulk ~150 ETB/kg',sa:'መርካቶ/አጠና ተራ ባለ 12 ሚ.ሜ ≈ 1,864 ብር (~150 ብር/ኪ.ግ በጅምላ)'},
+  formwork:{n:'Formwork materials (plywood, timber, steel props rental)',na:'የፎርምዎርክ ዕቃዎች (ፓነል፣ ጣውላ፣ የብረት ቋሚ/ፕሮፕ ኪራይ)',u:'m²',ua:'ካ.ሜ',p:450,imp:0.3,s:'Reused across floors; plywood + prop rental',sa:'በየወለሉ የሚዞር ፓነልና የብረት ቋሚ ኪራይ'},
+  scaffold:{n:'Scaffolding rental & safety (per m² facade)',na:'የስካፎልዲንግ (መወጣጫ) ኪራይ እና የደህንነት መረብ',u:'m²',ua:'ካ.ሜ',p:260,imp:0.2,s:'H-frame rental',sa:'የብረት መወጣጫ ኪራይ'},
+  hcb:{n:'HCB hollow concrete blocks 20 cm, Class C',na:'ብሎኬት (HCB) ባለ 20 ሴ.ሜ Class-C',u:'pcs',ua:'ፍሬ',p:36,imp:0.1,s:'Factory price 34–40 ETB',sa:'የፋብሪካ ዋጋ 34–40 ብር'},
+  cement:{n:'Cement OPC/PPC (50 kg × 2 = 1 quintal)',na:'ሲሚንቶ OPC/PPC (1 ኩንታል = 2 ከረጢት)',u:'quintal',ua:'ኩንታል',p:1800,imp:0.15,s:'Derba/Dangote 1,750–2,200 ETB/quintal',sa:'ደርባ/ዳንጎቴ ከ 1,750–2,200 ብር/ኩንታል'},
+  sand:{n:'Sand, delivered',na:'አሸዋ (ቦታው ድረስ የቀረበ)',u:'m³',ua:'ሜ³',p:4600,imp:0.05,s:'2,800–5,800 ETB/m³ depending on grade',sa:'ከ 2,800–5,800 ብር/ሜ³ እንደ ጥራቱ'},
+  waterproof:{n:'Waterproofing membrane (basement walls/floor & roof)',na:'የውሃ መከላከያ (Waterproofing - ለምድር ቤት እና ለጣሪያ)',u:'m²',ua:'ካ.ሜ',p:1150,imp:0.6,s:'Bituminous membrane, laid',sa:'ሜምብሬን ከነማንጠፊያው'},
+  labor:{n:'Structural labor-only contract (formwork, rebar fixing, casting, masonry)',na:'የስትራክቸር የእጅ ዋጋ ኮንትራት (ፎርምዎርክ፣ ብረት ማሰር፣ ኮንክሪት መሙላት፣ ግንበኝነት)',u:'m² GFA',ua:'ካ.ሜ',p:4200,imp:0,s:'Addis labor-only carcass 3,500–5,500 ETB/m²',sa:'የእጅ ዋጋ ብቻ ከ 3,500–5,500 ብር/ካ.ሜ'},
   // ---- semi finishing ----
-  plasterL:{n:'Plastering labor (3 coats, internal & external)',na:'የልስን የእጅ ዋጋ (3 ዙር፣ የውስጥ እና የውጭ)',u:'m²',ua:'ካ.ሜ',p:300,imp:0,s:'Labor rate, Addis 2026',sa:'የእጅ ዋጋ ብቻ (አዲስ አበባ 2019 ዓ.ም.)'},
-  screedL:{n:'Floor screed labor',na:'የወለል ሊሾ / ስክሪድ የእጅ ዋጋ',u:'m²',ua:'ካ.ሜ',p:160,imp:0,s:'Labor rate',sa:'የእጅ ዋጋ ብቻ'},
-  window:{n:'Aluminum windows with glass, installed',na:'የአሉሚኒየም መስኮቶች ከነመስታወቱ እና መግጠሚያው',u:'m²',ua:'ካ.ሜ',p:11500,imp:0.7,s:'Economy 8,500–12,000; premium 14–18k/m²',sa:'መደበኛ 8,500–12,000፤ ከፍተኛ 14–18 ሺህ ብር/ካ.ሜ'},
-  shopfront:{n:'Ground-floor shopfront glazing & rolling shutters',na:'የምድር ሱቆች መስታወት እና የሚጠቀለል የብረት በር (Rolling Shutter)',u:'m²',ua:'ካ.ሜ',p:15000,imp:0.7,s:'Tempered glass + steel shutters',sa:'ቴምፐርድ መስታወት እና የብረት ሻተር'},
-  extdoor:{n:'Main entrance & external steel doors',na:'ዋና መግቢያ እና የውጭ የብረት በሮች',u:'lump',ua:'በጥቅል',p:450000,imp:0.4,s:'Allowance',sa:'የጥቅል ግምት'},
-  elec:{n:'Electrical rough-in (conduits, cables, panels, earthing)',na:'የኤሌክትሪክ መስመር ዝርጋታ (ኮንዱይት፣ ገመድ፣ ቦርድ፣ ኤርዚንግ)',u:'m² GFA',ua:'ካ.ሜ',p:1900,imp:0.6,s:'Imported cables/breakers; rates rising with FX',sa:'የኤሌክትሪክ ገመዶችና ብሬከሮች ከነእጅ ዋጋው'},
-  plumb:{n:'Plumbing & drainage rough-in (PPR, uPVC, manholes, septic)',na:'የውሃ እና የፍሳሽ መስመር ዝርጋታ (PPR፣ PVC ቱቦዎች፣ ማንሆል)',u:'m² GFA',ua:'ካ.ሜ',p:1300,imp:0.5,s:'PPR 20–32 mm: 220–420 ETB per pipe',sa:'PPR እና PVC ቱቦዎች ከነእጅ ዋጋው'},
-  stair:{n:'Staircase finishing (terrazzo/granite) & steel railing',na:'የደረጃ ንጣፍ (ቴራዞ/ግራናይት) እና የብረት መደገፊያ (Railing)',u:'level',ua:'በወለል',p:170000,imp:0.3,s:'Per floor level',sa:'ለአንድ ወለል ደረጃ'},
-  facadePaint:{n:'External facade paint (2 coats)',na:'የውጭ ግድግዳ ቀለም (2 ዙር)',u:'m²',ua:'ካ.ሜ',p:450,imp:0.3,s:'Exterior emulsion + labor',sa:'የውጭ ቀለም ከነእጅ ዋጋው'},
-  utility:{n:'Utility connections (EEU power/transformer share, water, sewer)',na:'የመብራት (EEU ትራንስፎርመር/ቆጣሪ)፣ የውሃ እና የፍሳሽ ማስገቢያ',u:'lump',ua:'በጥቅል',p:1800000,imp:0.5,s:'Varies widely by site; ask EEU/AAWSA',sa:'እንደ አካባቢው ይለያያል (EEU/AAWSA)'},
+  plasterL:{n:'Plastering labor (3 coats, internal & external)',na:'የልስን የእጅ ዋጋ (3 ዙር፣ የውስጥ እና የውጭ)',u:'m²',ua:'ካ.ሜ',p:240,imp:0,s:'Labor rate, Addis 2026',sa:'የእጅ ዋጋ ብቻ (አዲስ አበባ 2019 ዓ.ም.)'},
+  screedL:{n:'Floor screed labor',na:'የወለል ሊሾ / ስክሪድ የእጅ ዋጋ',u:'m²',ua:'ካ.ሜ',p:140,imp:0,s:'Labor rate',sa:'የእጅ ዋጋ ብቻ'},
+  window:{n:'Aluminum windows with glass, installed',na:'የአሉሚኒየም መስኮቶች ከነመስታወቱ እና መግጠሚያው',u:'m²',ua:'ካ.ሜ',p:9800,imp:0.7,s:'Standard 8,500–11,500; premium 14–18k/m²',sa:'መደበኛ 8,500–11,500፤ ከፍተኛ 14–18 ሺህ ብር/ካ.ሜ'},
+  shopfront:{n:'Ground-floor shopfront glazing & rolling shutters',na:'የምድር ሱቆች መስታወት እና የሚጠቀለል የብረት በር (Rolling Shutter)',u:'m²',ua:'ካ.ሜ',p:12500,imp:0.7,s:'Tempered glass + steel shutters',sa:'ቴምፐርድ መስታወት እና የብረት ሻተር'},
+  extdoor:{n:'Main entrance & external steel doors',na:'ዋና መግቢያ እና የውጭ የብረት በሮች',u:'lump',ua:'በጥቅል',p:350000,imp:0.4,s:'Allowance scaled by building size',sa:'እንደ ሕንፃው ስፋት የጥቅል ግምት'},
+  elec:{n:'Electrical rough-in (conduits, cables, panels, earthing)',na:'የኤሌክትሪክ መስመር ዝርጋታ (ኮንዱይት፣ ገመድ፣ ቦርድ፣ ኤርዚንግ)',u:'m² GFA',ua:'ካ.ሜ',p:1350,imp:0.6,s:'Imported cables/breakers + labor',sa:'የኤሌክትሪክ ገመዶችና ብሬከሮች ከነእጅ ዋጋው'},
+  plumb:{n:'Plumbing & drainage rough-in (PPR, uPVC, manholes, septic)',na:'የውሃ እና የፍሳሽ መስመር ዝርጋታ (PPR፣ PVC ቱቦዎች፣ ማንሆል)',u:'m² GFA',ua:'ካ.ሜ',p:950,imp:0.5,s:'PPR 20–32 mm + uPVC drainage + labor',sa:'PPR እና PVC ቱቦዎች ከነእጅ ዋጋው'},
+  stair:{n:'Staircase finishing (terrazzo/granite) & steel railing',na:'የደረጃ ንጣፍ (ቴራዞ/ግራናይት) እና የብረት መደገፊያ (Railing)',u:'level',ua:'በወለል',p:135000,imp:0.3,s:'Per floor level',sa:'ለአንድ ወለል ደረጃ'},
+  facadePaint:{n:'External facade paint (2 coats)',na:'የውጭ ግድግዳ ቀለም (2 ዙር)',u:'m²',ua:'ካ.ሜ',p:380,imp:0.3,s:'Exterior emulsion + labor',sa:'የውጭ ቀለም ከነእጅ ዋጋው'},
+  utility:{n:'Utility connections (EEU power/meter, water, sewer)',na:'የመብራት (EEU ቆጣሪ/ትራንስፎርመር)፣ የውሃ እና የፍሳሽ ማስገቢያ',u:'lump',ua:'በጥቅል',p:1200000,imp:0.5,s:'3-phase meter for low-rise; transformer share for high-rise',sa:'እንደ ወለሉ ብዛት (ቆጣሪ ወይም ትራንስፎርመር)'},
   // ---- full finishing ----
-  tile:{n:'Porcelain floor tiles 60×60 (supply, +8% waste)',na:'የወለል ፖርሴሌን / ሴራሚክ 60×60 (ከ8% ብክነት ጋር)',u:'m²',ua:'ካ.ሜ',p:1700,imp:0.8,q:1,s:'Porcelain 1,200–2,000 ETB/m²',sa:'ፖርሴሌን ከ 1,200–2,000 ብር/ካ.ሜ'},
-  tileL:{n:'Tile laying labor + adhesive',na:'የሴራሚክ ማንጠፊያ የእጅ ዋጋ እና ኮላ (Adhesive)',u:'m²',ua:'ካ.ሜ',p:550,imp:0.2,s:'Labor + adhesive',sa:'የእጅ ዋጋ እና ማጣበቂያ'},
-  hardener:{n:'Basement parking floor hardener / epoxy',na:'የምድር ቤት (ሜጋዚን/ፓርኪንግ) ወለል ማጠንከሪያ (Floor Hardener)',u:'m²',ua:'ካ.ሜ',p:900,imp:0.5,s:'Parking floors',sa:'ለመጋዘን / ለመኪና ማቆሚያ ወለል'},
-  wallTile:{n:'Wall tiles in toilets & kitchens (supplied & fixed)',na:'የመጸዳጃ ቤትና የኪችን ግድግዳ ሴራሚክ (ከነማንጠፊያው)',u:'m²',ua:'ካ.ሜ',p:1600,imp:0.7,q:1,s:'Wall tiles 350–850/m² + fixing',sa:'የግድግዳ ሴራሚክ ከነእጅ ዋጋው'},
-  paint:{n:'Interior painting (putty + 3 coats emulsion)',na:'የውስጥ ግድግዳ ቀለም (ስቱኮ/ፑቲ + 3 ዙር ቀለም)',u:'m²',ua:'ካ.ሜ',p:380,imp:0.3,q:1,s:'Materials + labor',sa:'ቀለም፣ ፑቲ እና የእጅ ዋጋ'},
-  ceiling:{n:'Gypsum false ceiling',na:'የጂፕሰም ኮርኒስ (False Ceiling)',u:'m²',ua:'ካ.ሜ',p:1600,imp:0.5,q:1,s:'Gypsum board ≈ 850/sheet + frame + labor',sa:'የጂፕሰም ቦርድ፣ ፍሬም እና የእጅ ዋጋ'},
-  door:{n:'Internal doors with frame & ironmongery',na:'የውስጥ በሮች (ከነፍሬሙና ቁልፉ)',u:'pcs',ua:'ፍሬ',p:28000,imp:0.4,q:1,s:'MDF / solid wood door sets',sa:'የእንጨት / MDF በሮች ሙሉ ሴት'},
-  sanitary:{n:'Sanitary set (WC, basin, shower, mixers)',na:'የመጸዳጃ ቤት ዕቃዎች ሙሉ ሴት (መቀመጫ፣ የእጅ መታጠቢያ፣ ሻወር፣ ውሃ ማደባለቂያ)',u:'set',ua:'ሴት',p:55000,imp:0.8,q:1,s:'Mid-range Chinese/Turkish brands',sa:'መካከለኛ ጥራት (ቱርክ/ቻይና)'},
-  kitchen:{n:'Kitchen cabinets & countertop',na:'የኪችን ካቢኔት እና የእብነበረድ/ግራናይት ክዳን',u:'set',ua:'ሴት',p:180000,imp:0.5,q:1,s:'MDF cabinets + granite top',sa:'MDF ካቢኔት ከግራናይት ጋር'},
-  fittings:{n:'Light fittings, sockets & switches',na:'የኤሌክትሪክ አምፖሎች፣ ማብሪያና ማጥፊያዎች፣ ሶኬቶች',u:'m² GFA',ua:'ካ.ሜ',p:950,imp:0.8,q:1,s:'LED fittings, imported',sa:'LED መብራቶችና ሶኬቶች'},
-  elevBase:{n:'Passenger elevator 630–800 kg (base price, installed)',na:'የሰው ሊፍት (Elevator 630–800 ኪ.ግ) መነሻ ዋጋ ከነመግጠሚያው',u:'unit',ua:'ፍሬ',p:4500000,imp:0.9,s:'8 stops total ≈ 4.5–7.5M (Chinese), 8–12M premium',sa:'ባለ 8 ማቆሚያ በአጠቃላይ 4.5–7.5 ሚሊዮን ብር'},
-  elevStop:{n:'Elevator: price per stop',na:'የሊፍት ተጨማሪ ዋጋ በየወለሉ (Per Stop)',u:'stop',ua:'ማቆሚያ',p:250000,imp:0.9,s:'Adds per floor served',sa:'በእያንዳንዱ ወለል የሚጨመር'},
-  genset:{n:'Standby generator 150 kVA + ATS',na:'ተጠባባቂ ጀነሬተር 150 kVA ከአውቶማቲክ ማስነሻ (ATS) ጋር',u:'unit',ua:'ፍሬ',p:4200000,imp:0.9,s:'Imported; priced at ~161 ETB/USD',sa:'ከውጭ የሚገባ (~161 ብር/ዶላር)'},
-  water:{n:'Water reservoir, roof tanks & booster pumps',na:'የውሃ ማጠራቀሚያ ታንከሮች እና የውሃ ፓምፖች (Booster Pumps)',u:'lump',ua:'በጥቅል',p:950000,imp:0.6,s:'Allowance',sa:'የጥቅል ግምት'},
-  fire:{n:'Fire safety (alarm, hose reels, extinguishers)',na:'የእሳት አደጋ መከላከያ (አላርም፣ የውሃ ቱቦ፣ የእሳት ማጥፊያ)',u:'lump',ua:'በጥቅል',p:1300000,imp:0.8,s:'Allowance; required for permit',sa:'ለሕንፃ ፈቃድ የግድ የሚያስፈልግ'},
-  cladding:{n:'Facade cladding (ACP / curtain wall) on 30% of facade',na:'የውጭ ገጽታ ማስዋቢያ (አሉኮቦንድ / Curtain Wall - በ30% ገጽታ ላይ)',u:'m²',ua:'ካ.ሜ',p:9500,imp:0.8,q:1,s:'ACP or glass curtain wall',sa:'አሉኮቦንድ ወይም የመስታወት ገጽታ'},
-  external:{n:'External works (fence, gate, paving, ramp, landscaping)',na:'የውጭ ስራዎች (አጥር፣ በር፣ የግቢ ንጣፍ፣ የመኪና መወጣጫ ራምፕ)',u:'lump',ua:'በጥቅል',p:1600000,imp:0.2,s:'Allowance',sa:'የጥቅል ግምት'},
-  security:{n:'CCTV, intercom & access control',na:'የደህንነት ካሜራዎች (CCTV) እና ኢንተርኮም',u:'lump',ua:'በጥቅል',p:450000,imp:0.9,s:'Allowance',sa:'የጥቅል ግምት'}
+  tile:{n:'Porcelain floor tiles 60×60 (supply, +8% waste)',na:'የወለል ፖርሴሌን / ሴራሚክ 60×60 (ከ8% ብክነት ጋር)',u:'m²',ua:'ካ.ሜ',p:1450,imp:0.8,q:1,s:'Porcelain/ceramic 1,100–1,900 ETB/m²',sa:'ፖርሴሌን/ሴራሚክ ከ 1,100–1,900 ብር/ካ.ሜ'},
+  tileL:{n:'Tile laying labor + adhesive',na:'የሴራሚክ ማንጠፊያ የእጅ ዋጋ እና ኮላ (Adhesive)',u:'m²',ua:'ካ.ሜ',p:450,imp:0.2,s:'Labor + adhesive',sa:'የእጅ ዋጋ እና ማጣበቂያ'},
+  hardener:{n:'Basement parking floor hardener / epoxy',na:'የምድር ቤት (ሜጋዚን/ፓርኪንግ) ወለል ማጠንከሪያ (Floor Hardener)',u:'m²',ua:'ካ.ሜ',p:800,imp:0.5,s:'Parking floors',sa:'ለመጋዘን / ለመኪና ማቆሚያ ወለል'},
+  wallTile:{n:'Wall tiles in toilets & kitchens (supplied & fixed)',na:'የመጸዳጃ ቤትና የኪችን ግድግዳ ሴራሚክ (ከነማንጠፊያው)',u:'m²',ua:'ካ.ሜ',p:1300,imp:0.7,q:1,s:'Wall tiles + fixing',sa:'የግድግዳ ሴራሚክ ከነእጅ ዋጋው'},
+  paint:{n:'Interior painting (putty + 3 coats emulsion)',na:'የውስጥ ግድግዳ ቀለም (ስቱኮ/ፑቲ + 3 ዙር ቀለም)',u:'m²',ua:'ካ.ሜ',p:310,imp:0.3,q:1,s:'Materials + labor',sa:'ቀለም፣ ፑቲ እና የእጅ ዋጋ'},
+  ceiling:{n:'Gypsum false ceiling & cornice',na:'የጂፕሰም ኮርኒስ (False Ceiling)',u:'m²',ua:'ካ.ሜ',p:1150,imp:0.5,q:1,s:'Gypsum board + frame + labor',sa:'የጂፕሰም ቦርድ፣ ፍሬም እና የእጅ ዋጋ'},
+  door:{n:'Internal doors with frame & ironmongery',na:'የውስጥ በሮች (ከነፍሬሙና ቁልፉ)',u:'pcs',ua:'ፍሬ',p:21000,imp:0.4,q:1,s:'MDF / solid wood door sets (16k–28k)',sa:'የእንጨት / MDF በሮች ሙሉ ሴት (16–28 ሺህ)'},
+  sanitary:{n:'Sanitary set (WC, basin, shower, mixers)',na:'የመጸዳጃ ቤት ዕቃዎች ሙሉ ሴት (መቀመጫ፣ የእጅ መታጠቢያ፣ ሻወር፣ ውሃ ማደባለቂያ)',u:'set',ua:'ሴት',p:42000,imp:0.8,q:1,s:'Standard Chinese/Turkish brands (35k–60k)',sa:'መካከለኛ ጥራት ሙሉ ሴት (35–60 ሺህ)'},
+  kitchen:{n:'Kitchen cabinets & granite countertop',na:'የኪችን ካቢኔት እና የእብነበረድ/ግራናይት ክዳን',u:'set',ua:'ሴት',p:135000,imp:0.5,q:1,s:'MDF cabinets + granite top',sa:'MDF ካቢኔት ከግራናይት ጋር'},
+  fittings:{n:'Light fittings, sockets & switches',na:'የኤሌክትሪክ አምፖሎች፣ ማብሪያና ማጥፊያዎች፣ ሶኬቶች',u:'m² GFA',ua:'ካ.ሜ',p:680,imp:0.8,q:1,s:'LED fittings, imported',sa:'LED መብራቶችና ሶኬቶች'},
+  elevBase:{n:'Passenger elevator 630–800 kg (for G+5 and above)',na:'የሰው ሊፍት (Elevator 630–800 ኪ.ግ - ለG+5 እና በላይ)',u:'unit',ua:'ፍሬ',p:3900000,imp:0.9,s:'Installed for G+5+ (4.5–6.5M total incl. stops)',sa:'ለG+5 እና በላይ (ከነማቆሚያው 4.5–6.5 ሚሊዮን)'},
+  elevStop:{n:'Elevator: price per stop',na:'የሊፍት ተጨማሪ ዋጋ በየወለሉ (Per Stop)',u:'stop',ua:'ማቆሚያ',p:220000,imp:0.9,s:'Adds per floor served',sa:'በእያንዳንዱ ወለል የሚጨመር'},
+  genset:{n:'Standby generator + ATS (scaled by building size)',na:'ተጠባባቂ ጀነሬተር ከአውቶማቲክ ማስነሻ (ATS) ጋር',u:'unit',ua:'ፍሬ',p:2800000,imp:0.9,s:'Optional for G+2–G+3; standard for G+4+',sa:'ለG+4 እና በላይ (እንደ ሕንፃው መጠን)'},
+  water:{n:'Water reservoir, roof tanks & booster pumps',na:'የውሃ ማጠራቀሚያ ታንከሮች እና የውሃ ፓምፖች (Booster Pumps)',u:'lump',ua:'በጥቅል',p:650000,imp:0.6,s:'Scaled by floor count (roof tanks vs booster)',sa:'እንደ ወለሉ ብዛት (ታንከር እና ፓምፕ)'},
+  fire:{n:'Fire safety (extinguishers / hose reels / alarm)',na:'የእሳት አደጋ መከላከያ (ማጥፊያ፣ የውሃ ቱቦ፣ አላርም)',u:'lump',ua:'በጥቅል',p:750000,imp:0.8,s:'Scaled by height (extinguishers for G+2; hose-reels for G+5+)',sa:'እንደ ወለሉ ብዛት የሚለያይ'},
+  cladding:{n:'Facade cladding (ACP / curtain wall accent)',na:'የውጭ ገጽታ ማስዋቢያ (አሉኮቦንድ / Curtain Wall)',u:'m²',ua:'ካ.ሜ',p:7800,imp:0.8,q:1,s:'10% accent on low-rise; 22% on high-rise',sa:'እንደ ሕንፃው ቁመት ከ10%–22% የውጭ ገጽታ'},
+  external:{n:'External works (compound paving, gate, drainage)',na:'የውጭ ስራዎች (የግቢ ንጣፍ፣ በር፣ አጥር፣ የውሃ መውረጃ)',u:'lump',ua:'በጥቅል',p:950000,imp:0.2,s:'Scaled by plot & building size',sa:'የግቢ ንጣፍ፣ በር እና አጥር'},
+  security:{n:'CCTV, intercom & access control',na:'የደህንነት ካሜራዎች (CCTV) እና ኢንተርኮም',u:'lump',ua:'በጥቅል',p:320000,imp:0.9,s:'Scaled by building size',sa:'እንደ ሕንፃው ስፋት'}
 };
 const PH = ['grey','semi','full'];
 const PHN_EN = {grey:'Without finishing (grey structure)',semi:'Semi-finishing additions',full:'Full-finishing additions'};
 const PHN_AM = {grey:'ያለ ፊኒሺንግ (ግራጫ ሕንፃ / ስትራክቸር)',semi:'የከፊል ፊኒሺንግ ተጨማሪ ስራዎች',full:'የሙሉ ፊኒሺንግ ተጨማሪ ስራዎች'};
 const SC_EN = [
-  {name:'Without finishing',color:'var(--c0)',desc:'Excavation, basement, foundation, RC frame & slabs, block walls, waterproofing, structural labor.'},
+  {name:'Without finishing',color:'var(--c0)',desc:'Excavation, foundation (and basement if selected), RC columns & slabs, block walls, waterproofing, structural labor.'},
   {name:'Semi-finished',color:'var(--c1)',desc:'+ plaster & screed, aluminum windows & shopfronts, electrical & plumbing rough-in, stairs, facade paint, utility connections.'},
-  {name:'Fully finished',color:'var(--c2)',desc:'+ porcelain tiles, gypsum ceilings, paint, doors, sanitary & kitchens, fittings, elevator, generator, fire safety, cladding, external works.'}
+  {name:'Fully finished',color:'var(--c2)',desc:'+ porcelain tiles, gypsum ceilings, paint, doors, sanitary & kitchens, fittings, external works (plus elevator & generator on taller buildings).'}
 ];
 const SC_AM = [
-  {name:'1. ያለ ፊኒሺንግ (ስትራክቸር ብቻ)',color:'var(--c0)',desc:'ቁፋሮ፣ ምድር ቤት (Basement)፣ መሠረት፣ የኮንክሪት ኮለንና ሶሌታ (ስላብ)፣ የብሎኬት ግድግዳ፣ የውሃ መከላከያ እና የግንባታ የእጅ ዋጋ።'},
+  {name:'1. ያለ ፊኒሺንግ (ስትራክቸር ብቻ)',color:'var(--c0)',desc:'ቁፋሮ፣ መሠረት (እና ምድር ቤት ካለው)፣ የኮንክሪት ኮለንና ሶሌታ (ስላብ)፣ የብሎኬት ግድግዳ፣ የውሃ መከላከያ እና የግንባታ የእጅ ዋጋ።'},
   {name:'2. ከፊል ፊኒሺንግ (Semi-Finished)',color:'var(--c1)',desc:'ከላይ ያለው + ልስን እና ሊሾ (ስክሪድ)፣ የአሉሚኒየም መስኮቶችና የሱቅ በሮች፣ የኤሌክትሪክና የቧንቧ መስመር ዝርጋታ፣ ደረጃ፣ የውጭ ቀለም እና የመብራት/ውሃ ማስገቢያ።'},
-  {name:'3. ሙሉ ፊኒሺንግ (Fully Finished)',color:'var(--c2)',desc:'ከላይ ያለው + ፖርሴሌን/ሴራሚክ ንጣፍ፣ ጂፕሰም ኮርኒስ፣ የውስጥ ቀለም፣ በሮች፣ የመጸዳጃና የኪችን ዕቃዎች፣ መብራቶች፣ ሊፍት (Elevator)፣ ጀነሬተር፣ የእሳት አደጋ መከላከያና የውጭ ስራዎች።'}
+  {name:'3. ሙሉ ፊኒሺንግ (Fully Finished)',color:'var(--c2)',desc:'ከላይ ያለው + ፖርሴሌን/ሴራሚክ ንጣፍ፣ ጂፕሰም ኮርኒስ፣ የውስጥ ቀለም፣ በሮች፣ የመጸዳጃና የኪችን ዕቃዎች፣ መብራቶችና የውጭ ስራዎች (ለG+5 እና በላይ ሊፍትና ጀነሬተርን ጨምሮ)።'}
 ];
 const CAT_AM = {
   'Site & earthworks':'የቦታ ዝግጅት፣ ቁፋሮና ሾሪንግ',
@@ -646,15 +647,15 @@ const CAT_AM = {
 };
 const split = (a,b)=>g=>({sub:a(g),super:b(g)});
 const LINES = [
-  {k:'site',ph:'grey',cat:'Site & earthworks',q:g=>1,a:'floor'},
-  {k:'geo',ph:'grey',cat:'Site & earthworks',q:g=>1,a:'start'},
+  {k:'site',ph:'grey',cat:'Site & earthworks',q:g=>Math.max(0.25, g.GFA/1700),a:'floor'},
+  {k:'geo',ph:'grey',cat:'Site & earthworks',q:g=>g.nF<=3&&g.nB===0?0.35:(g.nF<=4?0.6:1),a:'start'},
   {k:'excav',ph:'grey',cat:'Site & earthworks',q:g=>g.excav,a:'sub'},
   {k:'shoring',ph:'grey',cat:'Site & earthworks',q:g=>g.retain,a:'sub'},
   {k:'hardcore',ph:'grey',cat:'Site & earthworks',q:g=>g.hardcore,a:'sub'},
   {k:'blinding',ph:'grey',cat:'Concrete',q:g=>g.blinding,a:'sub'},
   {k:'concrete',ph:'grey',cat:'Concrete',q:g=>g.concSub+g.concSuper,a:split(g=>g.concSub,g=>g.concSuper)},
-  {k:'pump',ph:'grey',cat:'Concrete',q:g=>g.concSub+g.concSuper,a:split(g=>g.concSub,g=>g.concSuper)},
-  {k:'rebar',ph:'grey',cat:'Reinforcement steel',q:g=>(g.concSub+g.concSuper)*S.rebarInt,a:split(g=>g.concSub,g=>g.concSuper)},
+  {k:'pump',ph:'grey',cat:'Concrete',q:g=>(g.concSub+g.concSuper)*(g.nF<=2?0.45:g.nF<=4?0.75:1),a:split(g=>g.concSub,g=>g.concSuper)},
+  {k:'rebar',ph:'grey',cat:'Reinforcement steel',q:g=>(g.concSub+g.concSuper)*S.rebarInt*(0.80+0.035*Math.min(g.nF,6)),a:split(g=>g.concSub,g=>g.concSuper)},
   {k:'formwork',ph:'grey',cat:'Formwork & scaffolding',q:g=>g.fwSub+g.fwSuper,a:split(g=>g.fwSub,g=>g.fwSuper)},
   {k:'scaffold',ph:'grey',cat:'Formwork & scaffolding',q:g=>g.facade,a:'super'},
   {k:'hcb',ph:'grey',cat:'Masonry (blocks, cement, sand)',q:g=>g.mas*12.5*1.05,a:split(g=>g.masB,g=>g.masAbove)},
@@ -663,21 +664,21 @@ const LINES = [
   {k:'waterproof',ph:'grey',cat:'Waterproofing',q:g=>g.wpSub+g.wpRoof,a:split(g=>g.wpSub,g=>g.wpRoof)},
   {k:'labor',ph:'grey',cat:'Structural labor',q:g=>g.GFA,a:'floor'},
   {k:'plasterL',ph:'semi',cat:'Plaster & screed',q:g=>g.plaster,a:'floor'},
-  {k:'cement',ph:'semi',lbl:'Cement for plaster & floor screed',lbla:'ሲሚንቶ ለልስን እና ለወለል ሊሾ',cat:'Plaster & screed',q:g=>g.plaster*0.10+g.GFA*0.13,a:'floor'},
-  {k:'sand',ph:'semi',lbl:'Sand for plaster & floor screed',lbla:'አሸዋ ለልስን እና ለወለል ሊሾ',cat:'Plaster & screed',q:g=>g.plaster*0.03+g.GFA*0.045,a:'floor'},
+  {k:'cement',ph:'semi',lbl:'Cement for plaster & floor screed',lbla:'ሲሚንቶ ለልስን እና ለወለል ሊሾ',cat:'Plaster & screed',q:g=>g.plaster*0.09+g.GFA*0.11,a:'floor'},
+  {k:'sand',ph:'semi',lbl:'Sand for plaster & floor screed',lbla:'አሸዋ ለልስን እና ለወለል ሊሾ',cat:'Plaster & screed',q:g=>g.plaster*0.028+g.GFA*0.038,a:'floor'},
   {k:'screedL',ph:'semi',cat:'Plaster & screed',q:g=>g.GFA,a:'floor'},
   {k:'window',ph:'semi',cat:'Windows & doors',q:g=>g.window,a:'super'},
   {k:'shopfront',ph:'semi',cat:'Windows & doors',q:g=>g.shop,a:'ground'},
-  {k:'extdoor',ph:'semi',cat:'Windows & doors',q:g=>1,a:'p1'},
+  {k:'extdoor',ph:'semi',cat:'Windows & doors',q:g=>Math.max(0.45, g.GFA/1500),a:'p1'},
   {k:'elec',ph:'semi',cat:'Electrical & plumbing',q:g=>g.GFA,a:'floor'},
   {k:'plumb',ph:'semi',cat:'Electrical & plumbing',q:g=>g.GFA,a:'floor'},
-  {k:'stair',ph:'semi',cat:'Stairs & facade',q:g=>g.levels,a:'floor'},
+  {k:'stair',ph:'semi',cat:'Stairs & facade',q:g=>Math.max(1, g.levels-1),a:'floor'},
   {k:'facadePaint',ph:'semi',cat:'Stairs & facade',q:g=>g.facade*(1-S.wwr/100),a:'super'},
-  {k:'utility',ph:'semi',cat:'Electrical & plumbing',q:g=>1,a:'p1'},
+  {k:'utility',ph:'semi',cat:'Electrical & plumbing',q:g=>g.nF<=3?0.22:(g.nF<=4?0.45:1),a:'p1'},
   {k:'tile',ph:'full',cat:'Floor & wall tiles',q:g=>g.tileArea*1.08,a:'super'},
   {k:'tileL',ph:'full',cat:'Floor & wall tiles',q:g=>g.tileArea,a:'super'},
   {k:'hardener',ph:'full',cat:'Floor & wall tiles',q:g=>g.nB*g.BP,a:'base'},
-  {k:'wallTile',ph:'full',cat:'Floor & wall tiles',q:g=>g.toilets*16+g.kitchens*6,a:'super'},
+  {k:'wallTile',ph:'full',cat:'Floor & wall tiles',q:g=>g.toilets*14+g.kitchens*6,a:'super'},
   {k:'paint',ph:'full',cat:'Ceilings & paint',q:g=>g.paint,a:'floor'},
   {k:'ceiling',ph:'full',cat:'Ceilings & paint',q:g=>g.ceiling,a:'super'},
   {k:'door',ph:'full',cat:'Windows & doors',q:g=>g.doors,a:'super'},
@@ -686,20 +687,20 @@ const LINES = [
   {k:'fittings',ph:'full',cat:'Sanitary, kitchens & fittings',q:g=>g.GFA,a:'floor'},
   {k:'elevBase',ph:'full',cat:'Elevator & equipment',q:g=>g.elev,a:'systems'},
   {k:'elevStop',ph:'full',cat:'Elevator & equipment',q:g=>g.elev*g.levels,a:'systems'},
-  {k:'genset',ph:'full',cat:'Elevator & equipment',q:g=>1,a:'systems'},
-  {k:'water',ph:'full',cat:'Elevator & equipment',q:g=>1,a:'p1'},
-  {k:'fire',ph:'full',cat:'Elevator & equipment',q:g=>1,a:'end'},
-  {k:'security',ph:'full',cat:'Elevator & equipment',q:g=>1,a:'end'},
-  {k:'cladding',ph:'full',cat:'Facade cladding & external works',q:g=>g.facade*0.3,a:'end'},
-  {k:'external',ph:'full',cat:'Facade cladding & external works',q:g=>1,a:'end'}
+  {k:'genset',ph:'full',cat:'Elevator & equipment',q:g=>g.nF>=5?1:(g.nF===4?0.45:0),a:'systems'},
+  {k:'water',ph:'full',cat:'Elevator & equipment',q:g=>g.nF<=3?0.28:(g.nF<=4?0.55:1),a:'p1'},
+  {k:'fire',ph:'full',cat:'Elevator & equipment',q:g=>g.nF<=3?0.12:(g.nF<=4?0.35:1),a:'end'},
+  {k:'security',ph:'full',cat:'Elevator & equipment',q:g=>g.nF<=3?0.30:(g.nF<=4?0.60:1),a:'end'},
+  {k:'cladding',ph:'full',cat:'Facade cladding & external works',q:g=>g.facade*(g.nF<=3?0.10:g.nF<=4?0.16:0.22),a:'end'},
+  {k:'external',ph:'full',cat:'Facade cladding & external works',q:g=>Math.max(0.32, g.GFA/1700),a:'end'}
 ];
 const CAT_COLORS = ['#475569','#64748b','#0ea5e9','#6366f1','#8b5cf6','#a855f7','#f59e0b','#d97706','#ea580c','#14b8a6','#10b981','#059669','#16a34a','#84cc16','#0891b2','#e11d48','#be123c','#9f1239'];
 
 const DEF = {
   lang:'am',
-  plot:300,cov:70,bcov:90,nF:6,nB:1,h:3.2,bd:3.5,wwr:25,comFloors:2,archStyle:0,units:2,toilets:3,doors:8,rebarInt:110,
-  quality:'standard',contractor:false,ohp:12,design:4,permit:1.5,superv:3,contingency:10,
-  delay:6,duration:30,rLoc:16,fx:6,usdInfl:2.5,fxRate:161,currency:'ETB',bd_scen:2,
+  plot:321,cov:70,bcov:90,nF:6,nB:1,h:3.2,bd:3.5,wwr:25,comFloors:2,archStyle:0,units:2,toilets:3,doors:8,rebarInt:100,
+  quality:'standard',contractor:false,ohp:12,design:1.5,permit:0.5,superv:1.5,contingency:5,
+  delay:6,duration:28,rLoc:16,fx:6,usdInfl:2.5,fxRate:161,currency:'ETB',bd_scen:2,
   upfront:20000000,monthly:1000000,incGrowth:10,target:2,rentAfter:1,slabMonths:1.5,finMonths:2,p1Shell:true,rentEach:true,
   loc:'atena',rentG:1400,rent1:900,rentUp:550,rentB:500,adv:12,eff:80,vac:10,tax:20,rentEsc:10
 };
@@ -717,16 +718,16 @@ function enc(o){ return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).re
 function dec(s){ return JSON.parse(decodeURIComponent(escape(atob(s)))); }
 function loadState(){
   S=freshState(); let src=null;
-  const m=location.hash.match(/s=([A-Za-z0-9+/_-]+)/);
+  const m=location.hash.match(/v4=([A-Za-z0-9+/_-]+)/);
   if(m){ try{ src=dec(m[1]); }catch(e){} }
-  if(!src){ try{ src=JSON.parse(localStorage.getItem('g6cost_v3_am')); }catch(e){} }
+  if(!src){ try{ src=JSON.parse(localStorage.getItem('g6cost_v4_am')); }catch(e){} }
   if(!src&&window.__BAKED_STATE__) src=window.__BAKED_STATE__;
   applyObj(src);
 }
 function saveState(){
   const d=diffObj();
-  try{ localStorage.setItem('g6cost_v3_am',JSON.stringify(d)); }catch(e){}
-  try{ history.replaceState(null,'',Object.keys(d).length?('#s='+enc(d)):location.pathname+location.search); }catch(e){}
+  try{ localStorage.setItem('g6cost_v4_am',JSON.stringify(d)); }catch(e){}
+  try{ history.replaceState(null,'',Object.keys(d).length?('#v4='+enc(d)):location.pathname+location.search); }catch(e){}
 }
 
 /* ===================== HELPERS ===================== */
@@ -792,26 +793,31 @@ function geom(){
   g.above=nF+1; g.levels=g.above+nB; g.GFA=g.above*g.FP+nB*g.BP;
   const per=A=>A>0?4.4*Math.sqrt(A/1.2):0; g.P=per(g.FP); g.Pb=per(g.BP);
   const baseA=nB>0?g.BP:g.FP;
-  g.excav=nB>0?g.BP*(S.bd*nB+0.8)*1.1:g.FP*1.2;
+  g.excav=nB>0?g.BP*(S.bd*nB+0.6)*1.08:g.FP*0.85;
   g.retain=g.Pb*S.bd*nB;
-  g.hardcore=baseA*0.25; g.blinding=baseA*0.05;
-  g.concSub=nB>0? g.BP*0.6+g.retain*0.3+g.BP*0.12+nB*g.BP*0.32+nB*6 : g.FP*0.5+g.FP*0.12;
-  g.concSuper=g.above*g.FP*0.32+g.above*6;
-  g.fwSub=nB>0? g.retain*2+nB*g.BP*1.4+g.BP*0.3 : g.FP*0.6;
-  g.fwSuper=g.above*g.FP*1.4+g.above*12;
+  g.hardcore=baseA*0.20; g.blinding=baseA*0.05;
+  // Substructure: isolated/strip footings + grade beams + ground slab for no-basement; raft + retaining walls + basement slabs when nB>0
+  g.concSub=nB>0? g.BP*(0.26+0.025*g.levels)+g.retain*0.24+nB*g.BP*0.21 : g.FP*(0.17+0.02*Math.min(nF,6));
+  // Superstructure: suspended floor slabs (nF), roof beams/parapet, columns & stairs
+  g.concSuper=(nF+0.65)*g.FP*0.21;
+  g.fwSub=nB>0? g.retain*1.8+nB*g.BP*1.1+g.BP*0.25 : g.FP*0.42;
+  g.fwSuper=(nF+0.65)*g.FP*1.18;
   g.facade=g.above*g.P*S.h;
-  g.masAbove=g.above*(g.P*S.h*(1-S.wwr/100)+g.FP*0.55); g.masB=nB*g.BP*0.15; g.mas=g.masAbove+g.masB;
+  g.masAbove=g.above*(g.P*S.h*(1-S.wwr/100)+g.FP*0.48); g.masB=nB*g.BP*0.14; g.mas=g.masAbove+g.masB;
   g.wpSub=nB>0?g.retain+g.BP:0; g.wpRoof=g.FP;
-  g.soffit=nB*g.BP+g.above*g.FP;
-  g.plaster=g.mas*2+g.soffit;
+  g.soffit=nB*g.BP+nF*g.FP;
+  g.plaster=g.mas*1.9+g.soffit;
   g.window=g.facade*S.wwr/100;
-  g.shop=S.comFloors>0?g.P*0.35*S.h:0;
-  g.tileArea=g.above*g.FP*0.88;
-  g.toilets=g.above*S.toilets;
-  g.resFloors=Math.max(0,g.above-S.comFloors); g.kitchens=g.resFloors*S.units;
+  g.shop=S.comFloors>0?g.P*0.32*S.h:0;
+  g.tileArea=g.above*g.FP*0.85;
+  const flScale = Math.min(1, g.FP/210);
+  g.toilets=Math.max(g.above, Math.round(g.above*S.toilets*(nF<=2?0.75:1)*flScale));
+  g.resFloors=Math.max(1,g.above-Math.min(S.comFloors, nF));
+  g.kitchens=g.resFloors*Math.max(1, nF<=2?Math.min(S.units,2):S.units);
   g.paint=Math.max(0,g.plaster-g.facade*(1-S.wwr/100));
-  g.ceiling=g.above*g.FP*0.7; g.doors=g.above*S.doors;
-  g.elev=g.levels>=5?1:0;
+  g.ceiling=g.above*g.FP*0.62;
+  g.doors=Math.round(g.above*S.doors*(nF<=2?0.78:1)*flScale);
+  g.elev=(nF>=5 || g.levels>=6)?1:0;
   return g;
 }
 function compute(){
@@ -827,9 +833,9 @@ function compute(){
   const cum=[direct[0],direct[0]+direct[1],direct[0]+direct[1]+direct[2]];
   return {g,rows,direct,cum};
 }
-const MIDS={grey:0.3,semi:0.7,full:0.85};
+const MIDS={grey:0.25,semi:0.55,full:0.70};
 function forecast(rows,scen,delay,dur){
-  let today=0,fut=0; rows.forEach(r=>{ if(PH.indexOf(r.ph)>scen) return; today+=r.amt; fut+=r.amt*idx(r.imp,delay+MIDS[r.ph]*dur*(scen===0?0.6/0.6:1)); });
+  let today=0,fut=0; rows.forEach(r=>{ if(PH.indexOf(r.ph)>scen) return; today+=r.amt; fut+=r.amt*idx(r.imp,delay+MIDS[r.ph]*dur); });
   const k=1+softPct(); return {today:today*k,future:fut*k};
 }
 
@@ -1039,26 +1045,46 @@ function renderBOQ(C){
 function renderCards(C){
   let h='', r='';
   const SC = isAm() ? SC_AM : SC_EN;
+  const g=C.g;
   SC.forEach((sc,i)=>{
     const f=forecast(C.rows,i,S.delay,S.duration), tm=S.delay+S.duration/2;
     const pct=f.future/f.today-1;
-    const perM2=f.future/C.g.GFA;
-    const badgeTxt = isAm() ? `ከዛሬው +${nf(pct*100,0)}%` : `+${nf(pct*100,0)}% vs today`;
-    const subTxt = isAm()
-      ? `ግንባታው ${S.delay===0?'አሁን':'ከ '+durTxt(S.delay)+' በኋላ ('+dateAt(S.delay).ec+')'} ቢጀመር (በ ${S.duration} ወራት የግንባታ ጊዜ ውስጥ የሚኖረውን የዋጋ ጭማሪ ጨምሮ)`
-      : `Forecast if you start ${S.delay===0?'now':'in '+durTxt(S.delay)+' ('+dateAt(S.delay).g+')'}, incl. price rises during the ${S.duration}-month build`;
+    const todayM2=f.today/g.GFA;
+    const futM2=f.future/g.GFA;
     h+=`<div class="sc" style="--cc:${sc.color}"><div class="t"><span>${sc.name}</span><span class="amt">${money(f.future,tm)}</span></div>
-      <div class="meta">${isAm()?'ዛሬ':'Today'} ${money(f.today,0)} · ${money(perM2,tm)}${isAm()?'/ካ.ሜ':'/m²'} · <span class="badge">+${nf(pct*100,0)}%</span></div>
+      <div class="meta"><b>${isAm()?'የዛሬ ዋጋ፦':'Today\'s cost:'} ${money(f.today,0)}</b> (${money(todayM2,0)}${isAm()?'/ካ.ሜ':'/m²'}) · ${isAm()?'ከ'+delayLbl(S.delay)+' በኋላ':'+'+delayLbl(S.delay)}፦ ${money(futM2,tm)}${isAm()?'/ካ.ሜ':'/m²'} <span class="badge">+${nf(pct*100,0)}%</span></div>
       <div class="desc">${sc.desc}</div></div>`;
     const mp=moneyParts(f.future,tm), RN=isAm()?['ያለ ፊኒሺንግ','ከፊል ፊኒሺንግ','ሙሉ ፊኒሺንግ']:['No finishing','Semi-finished','Fully finished'];
-    r+=`<div class="r" style="--cc:${sc.color}"><div class="l">${RN[i]}</div><div class="v">${mp.n}</div><div class="u">${mp.u}</div><div class="s">${isAm()?'ዛሬ':'Today'} ${(S.currency==='USD'?'$':'')+short(conv(f.today,0))}</div></div>`;
+    const todayK = Math.round(todayM2/1000);
+    r+=`<div class="r" style="--cc:${sc.color}"><div class="l">${RN[i]}</div><div class="v">${mp.n}</div><div class="u">${mp.u} · +${delayLbl(S.delay)}</div><div class="s"><b style="color:var(--xfg)">${isAm()?'ዛሬ፦':'Today:'} ${(S.currency==='USD'?'$':'')+short(conv(f.today,0))}</b> (${todayK}k/${isAm()?'ካ.ሜ':'m²'})</div></div>`;
   });
   document.getElementById('cards').innerHTML=h;
   document.getElementById('res').innerHTML=r;
-  const g=C.g, start=S.delay===0?(isAm()?'አሁን ቢጀመር':'if started now'):(isAm()?dateAt(S.delay).ec+' ቢጀመር':'if started '+dateAt(S.delay).g);
-  document.getElementById('resmeta').textContent = isAm()
-    ? `G+${g.nF}${g.nB?' + '+(g.nB>1?g.nB+' ':'')+'ምድር ቤት':''} · ${nf(g.GFA)} ካ.ሜ · ${S.cov}% · ${start} (ከዋጋ ጭማሪ ጋር)`
-    : `G+${g.nF}${g.nB?' + '+(g.nB>1?g.nB+' ':'')+'basement':''} · ${nf(g.GFA)} m² · ${S.cov}% · ${start} (incl. inflation)`;
+  const fFull=forecast(C.rows,2,S.delay,S.duration), fSemi=forecast(C.rows,1,S.delay,S.duration), fGrey=forecast(C.rows,0,S.delay,S.duration);
+  document.getElementById('resmeta').innerHTML = isAm()
+    ? `<b>G+${g.nF}${g.nB?' + '+(g.nB>1?g.nB+' ':'')+'ምድር ቤት':' (ያለ ምድር ቤት)'}</b> · ${nf(g.GFA)} ካ.ሜ (${nf(g.FP)} ካ.ሜ/ወለል) · የዛሬ ሙሉ ፊኒሺንግ፦ <b style="color:var(--c2)">${money(fFull.today,0)}</b>`
+    : `<b>G+${g.nF}${g.nB?' + '+(g.nB>1?g.nB+' ':'')+'basement':' (no basement)'}</b> · ${nf(g.GFA)} m² (${nf(g.FP)} m²/fl) · Today's Full Finish: <b style="color:var(--c2)">${money(fFull.today,0)}</b>`;
+  const mktEl=document.getElementById('mktCmpCard');
+  if(mktEl){
+    const typVillaGFA = 135 * g.above;
+    const typVillaToday = fFull.today * (typVillaGFA / g.GFA);
+    const perM2Today = Math.round(fFull.today / g.GFA);
+    mktEl.innerHTML = isAm() ? `
+      <h3 style="margin:0 0 6px;color:#1d4ed8">💡 የገበያ እውነታ፦ በራስ ካርታ መገንባት vs የተሰራ ቤት (Reseller) መግዛት</h3>
+      <div class="small" style="color:#334155;line-height:1.5">
+        <div style="margin-bottom:6px">• <b>የዛሬ ትክክለኛ የግንባታ ዋጋ (G+${g.nF}${g.nB?'+B':''})፦</b> በካርታዎ ላይ (<b>${nf(g.FP)} ካ.ሜ በየወለሉ</b> = ጠቅላላ <b>${nf(g.GFA)} ካ.ሜ</b>) በዛሬው የአዲስ አበባ ገበያ ዋጋ <b>ያለ ፊኒሺንግ ${money(fGrey.today,0)}</b>፣ <b>ከፊል ፊኒሺንግ ${money(fSemi.today,0)}</b>፣ <b>ሙሉ ፊኒሺንግ ${money(fFull.today,0)}</b> (~<b>${nf(perM2Today)} ብር/ካ.ሜ</b>) ይፈጃል። (ከላይ የሚታየው <b>${money(fFull.future,S.delay+S.duration/2)}</b> ከ${durTxt(S.delay)} በኋላ ተጀምሮ በ${S.duration} ወራት ግንባታ ውስጥ የሚኖረውን የ16% የዋጋ ግሽበት ጨምሮ ነው)።</div>
+        <div style="margin-bottom:6px">• <b>ከሚሸጡ G+2 ቤቶች (Resellers) ጋር ልዩነቱ ምንድን ነው?</b> በአዲስ አበባ (አያት፣ ሲኤምሲ፣ ሰሚት፣ ለቡ) በሪል እስቴት ወይም በግለሰብ የሚሸጡ መደበኛ G+2 ቤቶች የወለል ስፋታቸው <b>ከ120–145 ካ.ሜ/ወለል</b> (ጠቅላላ ~400 ካ.ሜ) ብቻ ነው፤ የእርስዎ ካርታ ግን <b>321 ካ.ሜ (በየወለሉ 225 ካ.ሜ = 674 ካ.ሜ ለG+2)</b> ስለሆነ <b>ከመደበኛ ቪላ በ1.7 እጥፍ ይሰፋል</b> (ሁለት ቤት ያህል ስፋት አለው)። በ135 ካ.ሜ/ወለል ቢሰላ ይህ G+${g.nF} ዛሬ <b>${money(typVillaToday,0)} ብቻ</b> ይፈጅ ነበር!</div>
+        <div>• <b>የመሬትና የንግድ ቦታ ዋጋ፦</b> የተሰራ G+2 ቤት ከሻጭ (Reseller) ሲገዙ ከ35–55 ሚሊዮን ብር የሚጠየቀው የመሬት ሊዝና የሻጩን ትርፍ (25–35%) ጨምሮ ነው። እርስዎ ግን <b>በአጠና ተራ (ወረዳ 10) የራስዎ 321 ካ.ሜ ካርታ</b> ስላለዎት በ<b>${money(fFull.today,0)}</b> የግንባታ ወጪ ብቻ ከመኖሪያነት ባለፈ የምድር ሱቆችና አፓርታማዎች ያሉት የንግድ ሕንፃ ያገኛሉ።</div>
+      </div>
+    ` : `
+      <h3 style="margin:0 0 6px;color:#1d4ed8">💡 Market Reality: Building on Your Karta vs. Buying a Reseller House</h3>
+      <div class="small" style="color:#334155;line-height:1.5">
+        <div style="margin-bottom:6px">• <b>True Today's Construction Cost (G+${g.nF}${g.nB?'+B':''}):</b> On your plot (<b>${nf(g.FP)} m²/floor</b> = <b>${nf(g.GFA)} m² total GFA</b>), building at today's Addis Ababa rates costs <b>${money(fGrey.today,0)} (Structure)</b>, <b>${money(fSemi.today,0)} (Semi-finished)</b>, and <b>${money(fFull.today,0)} (Fully finished</b>, or ~<b>${nf(perM2Today)} ETB/m²</b>). The higher forecast figure (<b>${money(fFull.future,S.delay+S.duration/2)}</b>) includes ${durTxt(S.delay)} of waiting plus inflation compounded over the ${S.duration}-month build.</div>
+        <div style="margin-bottom:6px">• <b>Why Your Footprint is 1.7× Larger than a Typical Reseller G+2:</b> Standard reseller G+2 houses in Ayat, Summit, CMC, or Lebu sit on 175–250 m² plots with a <b>120–145 m²/floor</b> footprint (~400 m² total). Your Atena Tera Karta is <b>321 m²</b> with a <b>225 m²/floor</b> footprint (<b>674 m²</b> for G+2)—nearly double a typical villa! At a standard 135 m²/floor villa footprint, this G+${g.nF} would cost only <b>${money(typVillaToday,0)} today</b>.</div>
+        <div>• <b>Land Value & Commercial Income:</b> Reseller G+2 prices in non-prime residential areas (35M–55M ETB) bundle land + 25–35% developer profit margin. Because you already own the <b>321 m² Atena Tera commercial-corridor Karta</b>, spending <b>${money(fFull.today,0)}</b> builds a wide-frontage (20.97 m) mixed-use building with ground-floor retail shops plus upper apartments.</div>
+      </div>
+    `;
+  }
 }
 function moneyParts(v,t){
   if(S.currency==='USD') return {n:'$'+short(v/fxAt(t||0)),u:'USD'};
@@ -1097,22 +1123,24 @@ function renderBreakdown(C){
     `<div class="b" style="border-top:1px solid var(--xbd);margin-top:4px;padding-top:6px"><b>${isAm()?'ጠቅላላ ድምር':'Total'}</b><b class="v">${money(tot,0)}</b></div>`;
   document.querySelectorAll('#bdSeg button').forEach(b=>b.classList.toggle('on',+b.dataset.bd===sc));
   const g=C.g, conc=g.concSub+g.concSuper+g.blinding;
-  const cementQ=g.mas*0.07+g.plaster*0.10+g.GFA*0.13;
+  const rebarT=(g.concSub+g.concSuper)*S.rebarInt*(0.80+0.035*Math.min(g.nF,6))/1000;
+  const cementQ=g.mas*0.07+g.plaster*0.09+g.GFA*0.11;
+  const sandQ=g.mas*0.022+g.plaster*0.028+g.GFA*0.038;
   const M = isAm() ? [
-    [nf(conc),'ሜ³ ሬዲ-ሚክስ ኮንክሪት'],
-    [nf(conc*S.rebarInt/1000,1),'ቶን የፌሮ ብረት'],
+    [nf(conc),'ሜ³ ኮንክሪት (C25/C30)'],
+    [nf(rebarT,1),'ቶን የፌሮ ብረት'],
     [nf(Math.round(g.mas*12.5*1.05/100)*100),'ብሎኬት (20 ሴ.ሜ)'],
     [nf(cementQ),'ኩንታል ሲሚንቶ (ለግንባታ፣ ልስንና ሊሾ)'],
-    [nf(g.mas*0.022+g.plaster*0.03+g.GFA*0.045),'ሜ³ አሸዋ'],
+    [nf(sandQ),'ሜ³ አሸዋ'],
     [nf(g.excav),'ሜ³ የአፈር ቁፋሮ'],
     [nf(g.window+g.shop),'ካ.ሜ መስኮቶችና የሱቅ በሮች'],
     [nf(g.tileArea*1.08),'ካ.ሜ የወለል ፖርሴሌን/ሴራሚክ']
   ] : [
-    [nf(conc),'m³ ready-mix concrete'],
-    [nf(conc*S.rebarInt/1000,1),'tonnes of rebar'],
+    [nf(conc),'m³ structural concrete'],
+    [nf(rebarT,1),'tonnes of rebar'],
     [nf(Math.round(g.mas*12.5*1.05/100)*100),'HCB blocks (20 cm)'],
     [nf(cementQ),'quintals of cement (mortar, plaster, screed)'],
-    [nf(g.mas*0.022+g.plaster*0.03+g.GFA*0.045),'m³ of sand'],
+    [nf(sandQ),'m³ of sand'],
     [nf(g.excav),'m³ excavation'],
     [nf(g.window+g.shop),'m² windows & shopfronts'],
     [nf(g.tileArea*1.08),'m² floor tiles']
@@ -1436,6 +1464,16 @@ function syncInputs(only){
   document.querySelectorAll('[data-k]').forEach(el=>{ const k=el.dataset.k; if(only&&!only.includes(k)) return; if(document.activeElement===el&&el.type!=='range') return;
     if(el.type==='checkbox') el.checked=!!S[k]; else el.value=S[k]; });
 }
+function autoDuration(nf, nb){ return Math.round(10 + nf * 2.5 + nb * 3); }
+function applyFloorDefaults(nf, adjustBase){
+  S.nF = nf;
+  if(adjustBase){
+    S.nB = nf <= 4 ? 0 : 1;
+    S.comFloors = nf <= 3 ? 1 : 2;
+  }
+  S.duration = autoDuration(S.nF, S.nB);
+  syncInputs(['nF','nB','comFloors','duration']);
+}
 function bindInputs(){
   document.querySelectorAll('[data-k]').forEach(el=>{
     const k=el.dataset.k;
@@ -1445,12 +1483,16 @@ function bindInputs(){
       if(el.type==='checkbox') v=el.checked;
       else if(el.tagName==='SELECT') v=(typeof DEF[k]==='number')?+el.value:el.value;
       else { v=parseFloat(el.value); if(isNaN(v)) return; if(el.min!==''&&v<+el.min) return; if(el.max!==''&&v>+el.max) return; }
-      S[k]=v; syncInputs([k]); renderAll(); saveState();
+      S[k]=v;
+      if(k==='nF') applyFloorDefaults(v, true);
+      else if(k==='nB'){ S.duration = autoDuration(S.nF, S.nB); syncInputs(['nB','duration']); }
+      else syncInputs([k]);
+      renderAll(); saveState();
     });
   });
   document.querySelectorAll('#presets .chip').forEach(c=>c.addEventListener('click',()=>{ Object.assign(S,PRESETS[c.dataset.preset]); syncInputs(['rLoc','fx']); renderAll(); saveState(); }));
   document.querySelectorAll('#covPresets .chip, #covPresetsTop .chip').forEach(c=>c.addEventListener('click',()=>{ S.cov=+c.dataset.cov; S.bcov=+c.dataset.bcov; syncInputs(['cov','bcov']); renderAll(); saveState(); }));
-  document.querySelectorAll('#floorPresets .chip').forEach(c=>c.addEventListener('click',()=>{ S.nF=+c.dataset.nf; syncInputs(['nF']); renderAll(); saveState(); }));
+  document.querySelectorAll('#floorPresets .chip').forEach(c=>c.addEventListener('click',()=>{ applyFloorDefaults(+c.dataset.nf, true); renderAll(); saveState(); }));
   document.querySelectorAll('#delayChips .chip').forEach(c=>c.addEventListener('click',()=>{ S.delay=+c.dataset.delay; renderAll(); saveState(); }));
   document.querySelectorAll('#langSeg button').forEach(b=>b.addEventListener('click',()=>{ S.lang=b.dataset.lang; renderAll(); saveState(); }));
   document.querySelectorAll('#curSeg button').forEach(b=>b.addEventListener('click',()=>{ S.currency=b.dataset.cur; renderAll(); saveState(); }));
@@ -1458,7 +1500,7 @@ function bindInputs(){
   document.getElementById('btnReset').addEventListener('click',()=>{ if(!confirm(isAm()?'ሁሉንም መረጃዎችና ዋጋዎች ወደ መጀመሪያው ይመለሱ?':'Reset every setting and price to the defaults?')) return; S=freshState(); syncInputs(); renderAll(); saveState(); toast(isAm()?'ወደ ነበረበት ተመልሷል':'Reset to defaults'); });
   document.getElementById('btnResetPrices').addEventListener('click',()=>{ for(const k in PR) S.prices[k]=PR[k].p; renderAll(); saveState(); toast(isAm()?'ዋጋዎች ወደ ጥቅምት 2019 ዓ.ም. የገበያ ዋጋ ተመልሰዋል':'Prices reset to Oct 2026 market values'); });
   document.getElementById('btnShare').addEventListener('click',()=>{
-    saveState(); const d=diffObj(); const url=location.href.split('#')[0]+(Object.keys(d).length?'#s='+enc(d):'');
+    saveState(); const d=diffObj(); const url=location.href.split('#')[0]+(Object.keys(d).length?'#v4='+enc(d):'');
     const done=()=>toast(isAm()?'ሊንኩ ኮፒ ተደርጓል!':'Link copied!');
     if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done,()=>prompt('Copy this link:',url)); else prompt('Copy this link:',url);
   });
