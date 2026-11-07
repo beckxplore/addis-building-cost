@@ -191,7 +191,33 @@ table.boq td.src{font-size:11.5px;color:var(--xmut);max-width:240px}
 .fl-info .r{text-align:right;font-weight:800;font-size:14px;color:var(--xpri)}
 .plan-wrap{background:#0f172a;border-radius:14px;padding:10px;margin-top:8px;color:#e2e8f0}
 .plan-wrap svg{width:100%;height:auto;display:block}
-@media (min-width:640px){.v3d-stage{height:460px}}
+/* Karta Site Map & Google Satellite Overlay */
+.v3d-top-btns{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.btn-site{border:1px solid rgba(56,189,248,.5);background:rgba(15,23,42,.85);color:#38bdf8;padding:8px 11px;border-radius:11px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;transition:all .15s}
+.btn-site.on{background:linear-gradient(135deg,#059669,#047857);color:#fff;border-color:#34d399;box-shadow:0 2px 10px rgba(5,150,105,.45)}
+.v3d-sat-bg{position:absolute;inset:-18%;width:136%;height:136%;border:0;opacity:0;pointer-events:none;transition:opacity .25s ease;filter:saturate(1.12) contrast(1.05);z-index:0}
+.v3d-stage.site-on .v3d-sat-bg{opacity:0.92}
+.v3d-stage.site-pan .v3d-sat-bg{pointer-events:auto;z-index:3}
+.v3d-stage canvas{position:relative;z-index:2}
+.v3d-stage.site-pan canvas{pointer-events:none;opacity:0.78}
+.v3d-site-bar{position:absolute;left:10px;bottom:44px;z-index:6;display:none;gap:5px;flex-wrap:wrap}
+.v3d-stage.site-on .v3d-site-bar{display:flex}
+.v3d-site-pill{border:1px solid rgba(255,255,255,.25);background:rgba(15,23,42,.82);color:#f8fafc;padding:4px 9px;border-radius:999px;font:inherit;font-size:11px;font-weight:700;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.v3d-site-pill.on{background:#059669;border-color:#6ee7b7;color:#fff}
+.karta-card{border:1.5px solid #bfdbfe;background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%)}
+.karta-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:8px 0 10px}
+.karta-box{background:var(--xsub);border:1px solid var(--xbd);border-radius:11px;padding:7px 10px}
+.karta-box .k{font-size:11px;color:var(--xmut);font-weight:700}
+.karta-box .v{font-size:13px;color:#0f172a;font-weight:800;margin-top:1px}
+.karta-actions{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.karta-actions .btn{font-size:12.5px;padding:8px 11px;border-radius:10px;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.karta-map-wrap{position:relative;width:100%;height:260px;border-radius:14px;overflow:hidden;border:1px solid var(--xbd);background:#0f172a}
+.karta-map-wrap iframe{width:100%;height:100%;border:0;display:block}
+.karta-coord-tbl{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:8px}
+.karta-coord-tbl th,.karta-coord-tbl td{padding:5px 7px;border-bottom:1px solid #eef1f5;text-align:right;font-variant-numeric:tabular-nums}
+.karta-coord-tbl th:first-child,.karta-coord-tbl td:first-child{text-align:left;font-weight:800;color:#1d4ed8}
+.karta-coord-tbl thead th{background:var(--xsub);color:#334155;font-weight:800}
+@media (min-width:640px){.v3d-stage{height:460px}.karta-meta{grid-template-columns:repeat(4,1fr)}.karta-map-wrap{height:310px}}
 </style>
 </head>
 <body>
@@ -432,12 +458,22 @@ table.boq td.src{font-size:11.5px;color:var(--xmut);max-width:240px}
           <div class="v3d-title" id="v3dTitle">ዲዛይን 1፦ ዘመናዊ አሉኮቦንድና ከርተን-ዎል</div>
           <div class="v3d-sub" id="v3dSub">ምድር + 1ኛ ወለል ንግድ · ከ2ኛ ወለል በላይ መኖሪያ አፓርታማ</div>
         </div>
-        <button class="btn-gen" id="btnGen3d">🎲 <span id="t_3d_gen">ዲዛይን ቀይር</span></button>
+        <div class="v3d-top-btns">
+          <button class="btn-site" id="btnSiteMode" type="button" title="Toggle Karta Google Map Site View">🛰️ <span id="t_3d_site">በካርታ ቦታ ላይ</span></button>
+          <button class="btn-gen" id="btnGen3d" type="button">🎲 <span id="t_3d_gen">ዲዛይን ቀይር</span></button>
+        </div>
       </div>
       <div class="v3d-stage" id="v3dStage">
+        <iframe class="v3d-sat-bg" id="v3dSatBg" title="Atena Tera Woreda 10 Satellite Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=9.038611,38.714308&amp;hl=en&amp;t=k&amp;z=19&amp;output=embed"></iframe>
         <canvas id="arch3d"></canvas>
         <div class="v3d-badges" id="v3dBadges"></div>
+        <div class="v3d-site-bar" id="v3dSiteBar">
+          <button type="button" class="v3d-site-pill on" id="btnModeOrbit">🕹️ 3D አሽከርክር</button>
+          <button type="button" class="v3d-site-pill" id="btnModePan">🗺️ ካርታውን አንቀሳቅስ</button>
+          <button type="button" class="v3d-site-pill" id="btnTopView">🦅 ከላይ (Top View)</button>
+        </div>
         <div class="v3d-hud">
+          <button id="v3dSite" title="On Karta Site (Google Map)" aria-label="On Karta Site">🛰️</button>
           <button id="v3dZoomIn" title="Zoom in" aria-label="Zoom in">＋</button>
           <button id="v3dZoomOut" title="Zoom out" aria-label="Zoom out">－</button>
           <button id="v3dExplode" title="Explode floors" aria-label="Explode floors">↕</button>
@@ -471,6 +507,29 @@ table.boq td.src{font-size:11.5px;color:var(--xmut);max-width:240px}
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="card karta-card" id="kartaCard">
+      <div class="card-h">
+        <h2 id="t_karta_h">🛰️ የካርታ ቦታ እና Google Satellite ካርታ (ወረዳ 10 · አጠና ተራ)</h2>
+        <span class="badge" style="background:#dcfce7;color:#047857" id="t_karta_upin">UPIN: AA000021000533</span>
+      </div>
+      <div class="small mut" id="t_karta_sub">ከይዞታ ማረጋገጫ ካርታው (ETH0001000000-00004028331) በተወሰዱት 15 ትክክለኛ የማዕዘን ኮኦርዲኔቶች መሠረት የተቀመጠ።</div>
+      <div class="karta-meta" id="kartaMeta"></div>
+      <div class="karta-actions">
+        <button type="button" class="btn" id="btnToggleSite2">🛰️ <span id="t_karta_btn_3d">ሕንፃውን በካርታው ላይ በ3D አሳይ</span></button>
+        <a class="btn ghost" id="btnOpenGmaps" href="https://www.google.com/maps/search/?api=1&amp;query=9.038611,38.714308" target="_blank" rel="noopener">📍 <span id="t_karta_btn_gm">በGoogle Maps ክፈት</span></a>
+        <button type="button" class="btn ghost" id="btnSyncKartaPlot">📐 <span id="t_karta_btn_plot">የካርታውን 321 ካ.ሜ ተጠቀም</span></button>
+      </div>
+      <div class="karta-map-wrap">
+        <iframe id="kartaEmbedMap" title="Google Maps Satellite View of Parcel AA000021000533" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=9.038611,38.714308&amp;hl=en&amp;t=k&amp;z=19&amp;output=embed"></iframe>
+      </div>
+      <details>
+        <summary id="t_karta_coords_sum">📋 የካርታው 15 የማዕዘን ኮኦርዲኔቶች (UTM Zone 37N &amp; GPS)</summary>
+        <div class="tblwrap" style="margin-top:8px">
+          <table class="karta-coord-tbl" id="kartaCoordTbl"></table>
+        </div>
+      </details>
     </section>
 
     <section class="card">
@@ -1457,6 +1516,50 @@ const ARCH_STYLES = [
   }
 ];
 
+const KARTA = {
+  upin: 'AA000021000533',
+  certNo: 'ETH0001000000-00004028331',
+  regNo: '04/019/98',
+  subCityAm: 'አዲስ ከተማ ክ/ከተማ · ወረዳ 10 (አጠና ተራ)',
+  subCityEn: 'Addis Ketema Sub-City · Woreda 10 (Atena Tera)',
+  street: 'AD_10_1920St. / 1920',
+  docArea: 321,
+  calcArea: 333.25,
+  lat: 9.038611,
+  lng: 38.714308,
+  dms: '9°02\'19.0"N 38°42\'51.5"E',
+  cE: 468507.212,
+  cN: 998931.966,
+  // Angle of South street frontage (P6 -> P12): atan2(5.022, 14.605) = +18.98 deg (0.3313 rad)
+  rotRad: 0.33129,
+  pts: [
+    {id:1,  x:468497.118, y:998944.487, corner:'NW'},
+    {id:2,  x:468498.116, y:998940.405},
+    {id:3,  x:468498.560, y:998938.587},
+    {id:4,  x:468499.222, y:998935.879},
+    {id:5,  x:468502.987, y:998925.157},
+    {id:6,  x:468504.040, y:998922.161, corner:'SW'},
+    {id:7,  x:468507.766, y:998923.442},
+    {id:8,  x:468508.956, y:998923.851},
+    {id:9,  x:468509.558, y:998924.058},
+    {id:10, x:468509.813, y:998924.146},
+    {id:11, x:468513.832, y:998925.528},
+    {id:12, x:468518.645, y:998927.183, corner:'SE'},
+    {id:13, x:468517.161, y:998931.088},
+    {id:14, x:468511.210, y:998946.737},
+    {id:15, x:468511.194, y:998946.787, corner:'NE'}
+  ]
+};
+// Precompute local 3D meter offsets (lx, lz) where +Z is South street frontage (P6->P12) and +X is East
+KARTA.pts.forEach(p=>{
+  const dE = p.x - KARTA.cE, dN = p.y - KARTA.cN;
+  const c = Math.cos(KARTA.rotRad), s = Math.sin(KARTA.rotRad);
+  p.lx = dE*c + dN*s;
+  p.lz = -(-dE*s + dN*c);
+  p.lat = +(KARTA.lat + (dN/110580)).toFixed(6);
+  p.lng = +(KARTA.lng + (dE/109960)).toFixed(6);
+});
+
 const V3D = {
   yaw: -0.62,
   pitch: 0.38,
@@ -1465,6 +1568,8 @@ const V3D = {
   explodeTarget: 0,
   spin: true,
   night: false,
+  siteMode: false, // Toggle: place 3D building on exact Karta Google Satellite map site
+  panMap: false,   // Sub-toggle when siteMode=true: pan Google Map vs orbit 3D
   stage: 2, // 0=grey, 1=semi, 2=full
   selFloor: 'all', // 'all','B','G','F1','RES','ROOF'
   ptrs: new Map(),
@@ -1501,7 +1606,23 @@ function render3DUI(C){
     : (am?'ሙሉ የንግድ ሕንፃ':'All commercial');
   document.getElementById('v3dSub').textContent = `${comTxt} · ${resTxt}`;
   document.getElementById('t_3d_gen').textContent = am ? 'ዲዛይን ቀይር' : 'New Design';
-  document.getElementById('v3dHint').textContent = am ? '👆 በጣትዎ ያሽከርክሩ · 🤏 ያጉሉ' : '👆 Drag to rotate 360° · 🤏 Pinch to zoom';
+  document.getElementById('t_3d_site').textContent = V3D.siteMode
+    ? (am ? 'በካርታ ላይ (በርቷል)' : 'On Karta Map (ON)')
+    : (am ? 'በካርታ ቦታ ላይ' : 'On Karta Map');
+  document.getElementById('btnSiteMode').classList.toggle('on', V3D.siteMode);
+  document.getElementById('v3dSite').classList.toggle('on', V3D.siteMode);
+  const stgEl=document.getElementById('v3dStage');
+  stgEl.classList.toggle('site-on', V3D.siteMode);
+  stgEl.classList.toggle('site-pan', V3D.siteMode && V3D.panMap);
+  document.getElementById('btnModeOrbit').textContent = am ? '🕹️ 3D አሽከርክር' : '🕹️ Rotate 3D';
+  document.getElementById('btnModePan').textContent = am ? '🗺️ ካርታውን አንቀሳቅስ' : '🗺️ Pan Google Map';
+  document.getElementById('btnTopView').textContent = am ? '🦅 ከላይ (Top View)' : '🦅 Top View';
+  document.getElementById('btnModeOrbit').classList.toggle('on', !V3D.panMap);
+  document.getElementById('btnModePan').classList.toggle('on', V3D.panMap);
+
+  document.getElementById('v3dHint').textContent = (V3D.siteMode && V3D.panMap)
+    ? (am ? '🗺️ የGoogle ሳተላይት ካርታውን በጣትዎ ያንቀሳቅሱ' : '🗺️ Drag or zoom the live Google Satellite map')
+    : (am ? '👆 በጣትዎ ያሽከርክሩ · 🤏 ያጉሉ' : '👆 Drag to rotate 360° · 🤏 Pinch to zoom');
   document.getElementById('t_3d_stage').textContent = am ? 'የግንባታ ደረጃ፦' : 'Finish stage:';
   document.getElementById('t_3d_s0').textContent = am ? 'ስትራክቸር' : 'Structure';
   document.getElementById('t_3d_s1').textContent = am ? 'ከፊል' : 'Semi';
@@ -1521,10 +1642,48 @@ function render3DUI(C){
 
   // Badges on top-left of 3D stage
   const bHtml=[];
+  if(V3D.siteMode){
+    bHtml.push(`<span class="v3d-b" style="background:rgba(4,120,87,.88);border-color:#34d399"><i style="background:#facc15"></i>${am?'ወረዳ 10 · አጠና ተራ (AD_10_1920St)':'Woreda 10 · Atena Tera (AD_10_1920St)'}</span>`);
+    bHtml.push(`<span class="v3d-b"><i style="background:#38bdf8"></i>UPIN: ${KARTA.upin} · 321 m²</span>`);
+  }
   if(g.nB>0) bHtml.push(`<span class="v3d-b"><i style="background:#64748b"></i>${am?`${g.nB} ምድር ቤት (ሜጋዚን)`:`${g.nB} Basement`}</span>`);
   if(cf>0) bHtml.push(`<span class="v3d-b"><i style="background:#0284c7"></i>${am?`${cf} የንግድ ወለል`:`${cf} Commercial`}</span>`);
   if(resFl>0) bHtml.push(`<span class="v3d-b"><i style="background:#d97706"></i>${am?`${resFl} የመኖሪያ ወለል`:`${resFl} Residential`}</span>`);
   document.getElementById('v3dBadges').innerHTML=bHtml.join('');
+
+  // Render Karta Site & Google Maps Card
+  document.getElementById('t_karta_h').textContent = am
+    ? '🛰️ የካርታ ቦታ እና Google Satellite ካርታ (ወረዳ 10 · አጠና ተራ)'
+    : '🛰️ Exact Title Deed (Karta) Site & Google Satellite Map';
+  document.getElementById('t_karta_sub').textContent = am
+    ? `ከይዞታ ማረጋገጫ ካርታው (${KARTA.certNo}) በተወሰዱት 15 ትክክለኛ የማዕዘን ኮኦርዲኔቶች (UTM Zone 37N) መሠረት በGoogle ሳተላይት ካርታ ላይ የተቀመጠ።`
+    : `Placed using the 15 exact survey boundary coordinates from Title Deed ${KARTA.certNo} (Addis Ketema, Woreda 10, Street ${KARTA.street}).`;
+  document.getElementById('t_karta_btn_3d').textContent = V3D.siteMode
+    ? (am ? 'ከ3D ላይ የሳተላይት ካርታውን አጥፋ' : 'Hide Satellite Map in 3D View')
+    : (am ? 'ሕንፃውን በካርታው ቦታ ላይ በ3D አሳይ' : 'Place 3D Building on Exact Map Site');
+  document.getElementById('btnToggleSite2').classList.toggle('ghost', V3D.siteMode);
+  document.getElementById('t_karta_btn_gm').textContent = am ? 'በGoogle Maps ክፈት' : 'Open in Google Maps';
+  document.getElementById('t_karta_btn_plot').textContent = S.plot===321
+    ? (am ? '✓ 321 ካ.ሜ (የካርታው ልክ) ተመርጧል' : '✓ Using Karta 321 m² (Tap for 300 m²)')
+    : (am ? '📐 የካርታውን 321 ካ.ሜ ተጠቀም' : '📐 Use Karta 321 m² Area');
+  document.getElementById('t_karta_coords_sum').textContent = am
+    ? '📋 የካርታው 15 የማዕዘን ኮኦርዲኔቶች (X, Y — UTM Zone 37N & GPS)'
+    : '📋 View All 15 Karta Survey Coordinates (UTM Zone 37N & GPS)';
+
+  document.getElementById('kartaMeta').innerHTML = [
+    [am?'ክፍለ ከተማ / ወረዳ':'Sub-City & Woreda', am?'አዲስ ከተማ · ወረዳ 10':'Addis Ketema · Woreda 10', `Street: ${KARTA.street}`],
+    [am?'የቦታው መለያ (UPIN)':'Parcel UPIN', KARTA.upin, `Cert: ${KARTA.certNo}`],
+    [am?'የካርታው ስፋትና ጎኖች':'Deed Area & Sides', `${KARTA.docArea} ${am?'ካ.ሜ':'m²'}`, am?'23.4ሜ × 15.4ሜ × 21.0ሜ × 14.3ሜ':'23.4m × 15.4m × 21.0m × 14.3m'],
+    [am?'GPS ኮኦርዲኔት (WGS84)':'GPS Coordinates', `${KARTA.lat}°N, ${KARTA.lng}°E`, `UTM 37N: ${nf(KARTA.cE,0)}, ${nf(KARTA.cN,0)}`]
+  ].map(([k,v,s])=>`<div class="karta-box"><div class="k">${k}</div><div class="v">${v}</div><div class="small mut" style="font-size:10.5px">${s}</div></div>`).join('');
+
+  const cTbl = document.getElementById('kartaCoordTbl');
+  if(cTbl && !cTbl.dataset.filled){
+    cTbl.dataset.filled='1';
+    cTbl.innerHTML = `<thead><tr><th>#</th><th>X (Easting m)</th><th>Y (Northing m)</th><th>GPS (Lat, Lng)</th></tr></thead><tbody>` +
+      KARTA.pts.map(p=>`<tr><td>P${p.id}${p.corner?` (${p.corner})`:''}</td><td>${p.x.toFixed(3)}</td><td>${p.y.toFixed(3)}</td><td>${p.lat}, ${p.lng}</td></tr>`).join('') +
+      `</tbody>`;
+  }
 
   // Floor strip chips
   const strip=[
@@ -1614,11 +1773,17 @@ function renderPlanSVG(C, mode){
   s+=`<rect width="${W}" height="${H}" rx="10" fill="#0f172a"/>`;
   for(let x=20;x<W;x+=20) s+=`<line x1="${x}" y1="0" x2="${x}" y2="${H}" stroke="#1e293b" stroke-width="1"/>`;
   for(let y=20;y<H;y+=20) s+=`<line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="#1e293b" stroke-width="1"/>`;
-  // Karta boundary
+  // Karta boundary (plus exact 15-point polygon overlay)
   s+=`<rect x="${px}" y="${py}" width="${pw}" height="${pd}" fill="rgba(30,41,59,.55)" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="6 4"/>`;
-  s+=`<text x="${px+6}" y="${py+14}" fill="#93c5fd" font-size="11" font-weight="700">${am?`ካርታ ወሰን (${nf(pW,1)}m × ${nf(pD,1)}m = ${nf(S.plot)} ካ.ሜ)`:`Karta Boundary (${nf(pW,1)}m × ${nf(pD,1)}m = ${nf(S.plot)} m²)`}</text>`;
+  const kPoly = KARTA.pts.map(p=>`${(W/2 + p.lx*sc*0.92).toFixed(1)},${((H-14)/2 + p.lz*sc*0.88).toFixed(1)}`).join(' ');
+  s+=`<polygon points="${kPoly}" fill="rgba(16,185,129,.12)" stroke="#facc15" stroke-width="1.8" stroke-dasharray="4 2"/>`;
+  KARTA.pts.filter(p=>p.corner).forEach(p=>{
+    const kx=W/2 + p.lx*sc*0.92, ky=(H-14)/2 + p.lz*sc*0.88;
+    s+=`<circle cx="${kx.toFixed(1)}" cy="${ky.toFixed(1)}" r="3.5" fill="#facc15" stroke="#0f172a" stroke-width="1"/>`;
+  });
+  s+=`<text x="${px+6}" y="${py+14}" fill="#fde047" font-size="10.5" font-weight="800">${am?`ካርታ UPIN ${KARTA.upin} (${nf(S.plot)} ካ.ሜ · 23.4m × 15.4m × 21.0m × 14.3m)`:`Karta UPIN ${KARTA.upin} (${nf(S.plot)} m² · 15 Survey Points)`}</text>`;
   // Street at bottom
-  s+=`<text x="${W/2}" y="${H-6}" text-anchor="middle" fill="#38bdf8" font-size="11.5" font-weight="800">⬇ ${am?'የአጠና ተራ ዋና መንገድ (የፊት ገጽታ / Front Street)':'Atena Tera Main Street (Frontage)'} ⬇</text>`;
+  s+=`<text x="${W/2}" y="${H-6}" text-anchor="middle" fill="#38bdf8" font-size="11.5" font-weight="800">⬇ ${am?`የአጠና ተራ መንገድ (${KARTA.street} · የፊት ገጽታ)`:`Atena Tera Street (${KARTA.street} · Frontage)`} ⬇</text>`;
 
   // Side ramp if basement > 0 and cov < 98
   if(g.nB>0){
@@ -1722,25 +1887,35 @@ function drawArch3D(){
   const night=V3D.night;
 
   // Sky / Backdrop
-  const sky=ctx.createLinearGradient(0,0,0,H);
-  if(night){
-    sky.addColorStop(0,'#060b19');
-    sky.addColorStop(0.6,'#0f172a');
-    sky.addColorStop(1,'#1e293b');
+  if(V3D.siteMode){
+    // Transparent canvas so live Google Satellite Map (#v3dSatBg) shines through underneath!
+    ctx.clearRect(0,0,W,H);
+    const vig=ctx.createRadialGradient(W*0.5,H*0.54,Math.min(W,H)*0.22,W*0.5,H*0.54,Math.max(W,H)*0.75);
+    vig.addColorStop(0,'rgba(15,23,42,0.08)');
+    vig.addColorStop(1, night ? 'rgba(6,11,25,0.68)' : 'rgba(15,23,42,0.45)');
+    ctx.fillStyle=vig;
+    ctx.fillRect(0,0,W,H);
   } else {
-    sky.addColorStop(0,'#0f294a');
-    sky.addColorStop(0.55,'#1e4b7a');
-    sky.addColorStop(1,'#dbeafe');
-  }
-  ctx.fillStyle=sky;
-  ctx.fillRect(0,0,W,H);
+    const sky=ctx.createLinearGradient(0,0,0,H);
+    if(night){
+      sky.addColorStop(0,'#060b19');
+      sky.addColorStop(0.6,'#0f172a');
+      sky.addColorStop(1,'#1e293b');
+    } else {
+      sky.addColorStop(0,'#0f294a');
+      sky.addColorStop(0.55,'#1e4b7a');
+      sky.addColorStop(1,'#dbeafe');
+    }
+    ctx.fillStyle=sky;
+    ctx.fillRect(0,0,W,H);
 
-  // Subtle stars in night mode
-  if(night){
-    ctx.fillStyle='rgba(255,255,255,0.55)';
-    for(let i=0;i<28;i++){
-      const sx=((i*97)%W), sy=((i*53)%Math.floor(H*0.45));
-      ctx.fillRect(sx,sy,1.5,1.5);
+    // Subtle stars in night mode
+    if(night){
+      ctx.fillStyle='rgba(255,255,255,0.55)';
+      for(let i=0;i<28;i++){
+        const sx=((i*97)%W), sy=((i*53)%Math.floor(H*0.45));
+        ctx.fillRect(sx,sy,1.5,1.5);
+      }
     }
   }
 
@@ -1862,15 +2037,30 @@ function drawArch3D(){
 
   const isZoneDim = z => V3D.selFloor!=='all' && V3D.selFloor!==z;
 
-  // 1. GROUND PLOT (300 m² Karta) & ATENA TERA STREET
+  // 1. GROUND PLOT (Karta) & ATENA TERA STREET
   const hx=pW/2, hz=pD/2;
-  // Surrounding site pad
-  addQuad([[-hx-3.5,0,hz+7],[hx+3.5,0,hz+7],[hx+3.5,0,-hz-3],[-hx-3.5,0,-hz-3]], night?'#1e293b':'#cbd5e1', {bias:-18,twoSided:true});
-  // Karta 300 m² compound paved surface
-  addQuad([[-hx,0.02,hz],[hx,0.02,hz],[hx,0.02,-hz],[-hx,0.02,-hz]], night?'#334155':'#e2e8f0', {stroke:'#3b82f6',lineW:1.5,bias:-15,twoSided:true});
-  // Street sidewalk + asphalt in front (+z)
-  addQuad([[-hx-3.5,0.04,hz+1.8],[hx+3.5,0.04,hz+1.8],[hx+3.5,0.04,hz],[-hx-3.5,0.04,hz]], night?'#475569':'#f1f5f9', {stroke:'#94a3b8',bias:-14,twoSided:true});
-  addQuad([[-hx-3.5,0.03,hz+6.6],[hx+3.5,0.03,hz+6.6],[hx+3.5,0.03,hz+1.8],[-hx-3.5,0.03,hz+1.8]], night?'#0f172a':'#334155', {bias:-14,twoSided:true});
+  if(V3D.siteMode){
+    // Semi-transparent ground pad so live Google Satellite imagery shows through while anchoring the building
+    addQuad([[-hx-6,0,hz+8],[hx+6,0,hz+8],[hx+6,0,-hz-6],[-hx-6,0,-hz-6]], 'rgba(15,23,42,0.32)', {rawCol:true,bias:-18,twoSided:true});
+    addQuad([[-hx,0.02,hz],[hx,0.02,hz],[hx,0.02,-hz],[-hx,0.02,-hz]], 'rgba(16,185,129,0.20)', {rawCol:true,stroke:'#38bdf8',lineW:1.3,bias:-15,twoSided:true});
+    // Street AD_10_1920St along South frontage (+z)
+    addQuad([[-hx-6,0.03,hz+6.2],[hx+6,0.03,hz+6.2],[hx+6,0.03,hz+1.2],[-hx-6,0.03,hz+1.2]], 'rgba(15,23,42,0.62)', {rawCol:true,stroke:'#38bdf8',bias:-14,twoSided:true});
+    // Neighboring Woreda 10 buildings (semi-transparent massing matching Karta aerial orthophoto)
+    // East neighbor (1-2 storey commercial/storage roof visible on Karta right side)
+    addBox(hx+1.4, 0, -hz+1, hx+9.5, 4.2, hz-0.5, 'rgba(148,163,184,0.34)', {rawCol:true,stroke:'rgba(226,232,240,0.45)',bias:-8});
+    // West neighbor across alley
+    addBox(-hx-9.2, 0, -hz, -hx-1.6, 5.8, hz-0.5, 'rgba(148,163,184,0.32)', {rawCol:true,stroke:'rgba(226,232,240,0.45)',bias:-8});
+    // North neighbor behind parcel
+    addBox(-hx-1, 0, -hz-8.5, hx+2, 3.8, -hz-1.2, 'rgba(148,163,184,0.30)', {rawCol:true,stroke:'rgba(226,232,240,0.4)',bias:-8});
+  } else {
+    // Surrounding site pad
+    addQuad([[-hx-3.5,0,hz+7],[hx+3.5,0,hz+7],[hx+3.5,0,-hz-3],[-hx-3.5,0,-hz-3]], night?'#1e293b':'#cbd5e1', {bias:-18,twoSided:true});
+    // Karta compound paved surface
+    addQuad([[-hx,0.02,hz],[hx,0.02,hz],[hx,0.02,-hz],[-hx,0.02,-hz]], night?'#334155':'#e2e8f0', {stroke:'#3b82f6',lineW:1.5,bias:-15,twoSided:true});
+    // Street sidewalk + asphalt in front (+z)
+    addQuad([[-hx-3.5,0.04,hz+1.8],[hx+3.5,0.04,hz+1.8],[hx+3.5,0.04,hz],[-hx-3.5,0.04,hz]], night?'#475569':'#f1f5f9', {stroke:'#94a3b8',bias:-14,twoSided:true});
+    addQuad([[-hx-3.5,0.03,hz+6.6],[hx+3.5,0.03,hz+6.6],[hx+3.5,0.03,hz+1.8],[-hx-3.5,0.03,hz+1.8]], night?'#0f172a':'#334155', {bias:-14,twoSided:true});
+  }
   // Dashed white road centerline
   for(let rx=-hx-2;rx<hx+2;rx+=2.8){
     addQuad([[rx,0.05,hz+4.35],[rx+1.4,0.05,hz+4.35],[rx+1.4,0.05,hz+4.1],[rx,0.05,hz+4.1]], '#f8fafc', {unlit:true,bias:-13,twoSided:true});
@@ -2153,7 +2343,7 @@ function drawArch3D(){
     }
   });
 
-  // 6. 3D FLOATING DIMENSION & ZONE CALLOUT LABELS
+  // 6. 3D FLOATING DIMENSION, KARTA SURVEY BOUNDARY & ZONE CALLOUT LABELS
   ctx.font='700 11px system-ui,-apple-system,sans-serif';
   const drawTag=(x,y,z,txt,bg)=>{
     const p=proj(x,y,z);
@@ -2168,7 +2358,44 @@ function drawArch3D(){
     ctx.textBaseline='middle';
     ctx.fillText(txt,p.x,p.y);
   };
-  drawTag(0, 0.1, hz+1.1, am?`${nf(pW,1)}m × ${nf(pD,1)}m (${nf(S.plot)} ካ.ሜ ካርታ)`:`${nf(pW,1)}m × ${nf(pD,1)}m (${nf(S.plot)} m² Karta)`, 'rgba(29,78,216,0.85)');
+
+  if(V3D.siteMode){
+    // Draw the exact 15-point Karta survey polygon (UPIN AA000021000533) on the 3D ground plane!
+    const kProj = KARTA.pts.map(p=>Object.assign({}, p, proj(p.lx, 0.08, p.lz)));
+    ctx.save();
+    ctx.beginPath();
+    kProj.forEach((kp,idx)=>{ if(idx===0) ctx.moveTo(kp.x,kp.y); else ctx.lineTo(kp.x,kp.y); });
+    ctx.closePath();
+    ctx.strokeStyle='#facc15';
+    ctx.lineWidth=2.4;
+    ctx.setLineDash([6,3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // Draw all 15 survey beacons + corner ID tags (P1 NW, P6 SW, P12 SE, P15 NE)
+    kProj.forEach(kp=>{
+      ctx.beginPath();
+      ctx.arc(kp.x, kp.y, kp.corner?4.5:2.5, 0, Math.PI*2);
+      ctx.fillStyle = kp.corner ? '#facc15' : '#38bdf8';
+      ctx.fill();
+      ctx.strokeStyle='#0f172a';
+      ctx.lineWidth=1.2;
+      ctx.stroke();
+      if(kp.corner){
+        ctx.font='800 10px system-ui,sans-serif';
+        ctx.fillStyle='#fef08a';
+        ctx.textAlign='center';
+        ctx.fillText(`P${kp.id}`, kp.x, kp.y-8);
+      }
+    });
+    ctx.restore();
+    ctx.font='700 11px system-ui,-apple-system,sans-serif';
+    drawTag(0, 0.15, hz+3.4, am?`🛣 መንገድ ${KARTA.street} (15.44m የፊት ገጽታ)`:`🛣 Street ${KARTA.street} (15.44m Frontage)`, 'rgba(4,120,87,0.92)');
+    drawTag(-hx-1.2, 0.2, 0, am?'ምዕራብ 23.40m':'West 23.40m', 'rgba(15,23,42,0.82)');
+    drawTag(hx+1.2, 0.2, 0, am?'ምሥራቅ 20.97m':'East 20.97m', 'rgba(15,23,42,0.82)');
+    drawTag(0, 0.2, -hz-1.2, am?'⬆ ሰሜን (North) · 14.26m':'⬆ North · 14.26m', 'rgba(29,78,216,0.88)');
+  } else {
+    drawTag(0, 0.1, hz+1.1, am?`${nf(pW,1)}m × ${nf(pD,1)}m (${nf(S.plot)} ካ.ሜ ካርታ)`:`${nf(pW,1)}m × ${nf(pD,1)}m (${nf(S.plot)} m² Karta)`, 'rgba(29,78,216,0.85)');
+  }
   if(cf>0 && floorBands[cf-1]){
     const yCom = floorBands[cf-1].y1*0.5;
     drawTag(bx1+0.6, yCom, bz1, am?`ንግድ (G${cf>1?'–'+(cf-1)+'ኛ':''})`:`Commercial`, 'rgba(2,132,199,0.85)');
@@ -2184,7 +2411,7 @@ function drawArch3D(){
 function tick3D(){
   V3D.raf=0;
   let keep=false;
-  if(V3D.spin && V3D.ptrs.size===0){
+  if(V3D.spin && V3D.ptrs.size===0 && !(V3D.siteMode && V3D.panMap)){
     V3D.yaw += 0.0045;
     keep=true;
   }
@@ -2209,7 +2436,7 @@ function setup3D(){
   if(!stg) return;
   let lastX=0, lastY=0;
   stg.addEventListener('pointerdown',e=>{
-    if(e.target.closest('.v3d-hud')) return;
+    if(e.target.closest('.v3d-hud') || e.target.closest('.v3d-site-bar') || (V3D.siteMode && V3D.panMap)) return;
     stg.setPointerCapture(e.pointerId);
     V3D.ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
     lastX=e.clientX; lastY=e.clientY;
@@ -2226,7 +2453,7 @@ function setup3D(){
       const dx=e.clientX-lastX, dy=e.clientY-lastY;
       lastX=e.clientX; lastY=e.clientY;
       V3D.yaw += dx*0.009;
-      V3D.pitch = Math.max(0.08, Math.min(1.18, V3D.pitch + dy*0.007));
+      V3D.pitch = Math.max(0.08, Math.min(1.35, V3D.pitch + dy*0.007));
       drawArch3D();
     } else if(V3D.ptrs.size===2){
       const [p1,p2]=[...V3D.ptrs.values()];
@@ -2242,10 +2469,58 @@ function setup3D(){
   stg.addEventListener('pointerup',endPtr);
   stg.addEventListener('pointercancel',endPtr);
   stg.addEventListener('wheel',e=>{
+    if(V3D.siteMode && V3D.panMap) return;
     e.preventDefault();
     V3D.zoom = Math.max(0.55, Math.min(2.4, V3D.zoom * (e.deltaY<0?1.1:0.91)));
     drawArch3D();
   },{passive:false});
+
+  // Toggle Karta Google Satellite Site Mode
+  const toggleSiteMode = ()=>{
+    V3D.siteMode = !V3D.siteMode;
+    V3D.panMap = false;
+    if(V3D.siteMode){
+      // Angle camera slightly higher so the Karta parcel & satellite map are clearly visible
+      V3D.pitch = Math.max(V3D.pitch, 0.56);
+      V3D.spin = false;
+      document.getElementById('v3dSpin').classList.remove('on');
+      toast(isAm()?'🛰️ ሕንፃው በአጠና ተራ ወረዳ 10 (UPIN AA000021000533) የGoogle ሳተላይት ካርታ ላይ ተቀምጧል':'🛰️ Placed on Woreda 10 Atena Tera Google Satellite Map (UPIN AA000021000533)');
+    }
+    render3DUI(compute());
+    drawArch3D();
+  };
+  document.getElementById('btnSiteMode').addEventListener('click', toggleSiteMode);
+  document.getElementById('v3dSite').addEventListener('click', toggleSiteMode);
+  document.getElementById('btnToggleSite2').addEventListener('click', ()=>{
+    if(!V3D.siteMode) toggleSiteMode();
+    else toggleSiteMode();
+    document.getElementById('v3dStage').scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  document.getElementById('btnModeOrbit').addEventListener('click', ()=>{
+    V3D.panMap = false;
+    render3DUI(compute());
+  });
+  document.getElementById('btnModePan').addEventListener('click', ()=>{
+    V3D.panMap = true;
+    V3D.spin = false;
+    document.getElementById('v3dSpin').classList.remove('on');
+    render3DUI(compute());
+  });
+  document.getElementById('btnTopView').addEventListener('click', ()=>{
+    V3D.panMap = false;
+    V3D.spin = false;
+    document.getElementById('v3dSpin').classList.remove('on');
+    V3D.yaw = 0;
+    V3D.pitch = 1.25;
+    render3DUI(compute());
+    drawArch3D();
+  });
+  document.getElementById('btnSyncKartaPlot').addEventListener('click', ()=>{
+    S.plot = (S.plot===321) ? 300 : 321;
+    syncInputs(['plot']);
+    renderAll(); saveState();
+    toast(isAm()?`የቦታው ስፋት ወደ ${S.plot} ካ.ሜ ተቀይሯል`:`Plot area set to ${S.plot} m²`);
+  });
 
   // HUD buttons
   document.getElementById('v3dZoomIn').addEventListener('click',()=>{ V3D.zoom=Math.min(2.4,V3D.zoom*1.18); drawArch3D(); });
@@ -2267,7 +2542,7 @@ function setup3D(){
     drawArch3D();
   });
   document.getElementById('v3dReset').addEventListener('click',()=>{
-    V3D.yaw=-0.62; V3D.pitch=0.38; V3D.zoom=1.0; V3D.explodeTarget=0; V3D.selFloor='all';
+    V3D.yaw=-0.62; V3D.pitch=0.38; V3D.zoom=1.0; V3D.explodeTarget=0; V3D.selFloor='all'; V3D.panMap=false;
     document.getElementById('v3dExplode').classList.remove('on');
     render3DUI(compute());
   });
