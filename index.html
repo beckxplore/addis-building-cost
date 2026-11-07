@@ -53,7 +53,7 @@ h3{font-size:14px;margin:0 0 8px;color:#1e293b}
 .resmeta{font-size:11.5px;color:var(--xmut);margin-top:6px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* bottom nav */
-.bnav{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;border-top:1px solid var(--xbd);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -4px 16px rgba(15,23,42,.06)}
+.bnav{position:fixed;left:0;right:0;bottom:0;z-index:50;transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);background:#fff;border-top:1px solid var(--xbd);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -4px 16px rgba(15,23,42,.06)}
 .bnav .in{display:flex;width:100%;max-width:760px}
 .bnav button{flex:1;height:var(--navh);border:0;background:transparent;font:inherit;color:var(--xmut);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
 .bnav button .ic{font-size:21px;line-height:1}
@@ -158,6 +158,40 @@ table.boq td.src{font-size:11.5px;color:var(--xmut);max-width:240px}
 }
 @media (max-width:370px){.res .v{font-size:16px}.res .r{padding:7px}}
 @media print{.bnav,.hdr-actions{display:none}.tab{display:block !important}.topbar{position:static}body{padding:0}}
+/* 3D Architecture Tab & Viewer */
+.cta3d{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;margin-top:12px;padding:11px 14px;border:1px solid #bfdbfe;border-radius:14px;background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);color:#1e3a8a;font:inherit;font-size:13.5px;font-weight:800;cursor:pointer;box-shadow:0 2px 6px rgba(29,78,216,.08)}
+.cta3d span.sub{display:block;font-size:11.5px;font-weight:600;color:#3b82f6;margin-top:1px}
+.cta3d .arr{font-size:18px;background:#1d4ed8;color:#fff;width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.v3d-card{padding:0;overflow:hidden;position:relative;background:#0f172a;color:#fff}
+.v3d-top{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;background:rgba(15,23,42,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.1)}
+.v3d-title{font-size:13px;font-weight:800;color:#f8fafc;line-height:1.25}
+.v3d-sub{font-size:11px;color:#94a3b8;margin-top:1px}
+.btn-gen{border:0;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;padding:8px 12px;border-radius:11px;font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;white-space:nowrap;box-shadow:0 2px 8px rgba(37,99,235,.4);display:inline-flex;align-items:center;gap:5px}
+.btn-gen:active{transform:scale(.97)}
+.v3d-stage{position:relative;width:100%;height:390px;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden}
+.v3d-stage canvas{width:100%;height:100%;display:block;cursor:grab}
+.v3d-stage canvas:active{cursor:grabbing}
+.v3d-hud{position:absolute;right:10px;bottom:10px;display:flex;flex-direction:column;gap:6px;z-index:5}
+.v3d-hud button{width:38px;height:38px;border-radius:11px;border:1px solid rgba(255,255,255,.22);background:rgba(15,23,42,.72);color:#fff;font:inherit;font-size:16px;font-weight:800;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:0}
+.v3d-hud button.on{background:#2563eb;border-color:#60a5fa}
+.v3d-hint{position:absolute;left:10px;bottom:10px;background:rgba(15,23,42,.68);color:#e2e8f0;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:600;pointer-events:none;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14)}
+.v3d-badges{position:absolute;left:10px;top:10px;display:flex;flex-wrap:wrap;gap:5px;pointer-events:none;max-width:calc(100% - 62px)}
+.v3d-b{background:rgba(15,23,42,.72);color:#f8fafc;border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:3px 8px;font-size:11px;font-weight:700;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.v3d-b i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.v3d-bar{padding:10px 12px;background:#fff;color:#0f172a;border-top:1px solid var(--xbd)}
+.v3d-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.v3d-row:last-child{margin-bottom:0}
+.style-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+.style-grid .chip{font-size:12px;padding:7px 4px;text-align:center}
+.fl-strip{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;-webkit-overflow-scrolling:touch}
+.fl-strip .chip{flex-shrink:0;font-size:12px;padding:6px 10px;min-height:34px}
+.fl-info{background:var(--xsub);border:1px solid var(--xbd);border-radius:14px;padding:10px 12px;margin-top:6px;display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center}
+.fl-info .t{font-weight:800;font-size:13.5px;color:#0f172a}
+.fl-info .d{font-size:12px;color:var(--xmut);margin-top:2px}
+.fl-info .r{text-align:right;font-weight:800;font-size:14px;color:var(--xpri)}
+.plan-wrap{background:#0f172a;border-radius:14px;padding:10px;margin-top:8px;color:#e2e8f0}
+.plan-wrap svg{width:100%;height:auto;display:block}
+@media (min-width:640px){.v3d-stage{height:460px}}
 </style>
 </head>
 <body>
@@ -213,6 +247,7 @@ table.boq td.src{font-size:11.5px;color:var(--xmut);max-width:240px}
         <button class="chip" data-cov="85" data-bcov="95" id="t_top_cov85">85%</button>
         <button class="chip" data-cov="100" data-bcov="100" id="t_top_cov100">100%</button>
       </div>
+      <button class="cta3d" id="btnOpen3d" type="button"><div><span id="t_cta3d_m">🏛 የሕንፃውን 3D ዲዛይን ይመልከቱ</span><span class="sub" id="t_cta3d_s">የንግድ + የመኖሪያ አፓርታማ ዲዛይን · በ360° ያሽከርክሩ፣ ያጉሉ</span></div><span class="arr">›</span></button>
     </section>
 
     <section class="card">
@@ -388,9 +423,70 @@ table.boq td.src{font-size:11.5px;color:var(--xmut);max-width:240px}
     </section>
     <div class="mut small" style="text-align:center;margin-top:8px" id="t_footer"></div>
   </div>
+
+  <!-- ===================== TAB 4: 3D DESIGN ===================== -->
+  <div class="tab" data-tab="3d">
+    <section class="card v3d-card">
+      <div class="v3d-top">
+        <div style="min-width:0">
+          <div class="v3d-title" id="v3dTitle">ዲዛይን 1፦ ዘመናዊ አሉኮቦንድና ከርተን-ዎል</div>
+          <div class="v3d-sub" id="v3dSub">ምድር + 1ኛ ወለል ንግድ · ከ2ኛ ወለል በላይ መኖሪያ አፓርታማ</div>
+        </div>
+        <button class="btn-gen" id="btnGen3d">🎲 <span id="t_3d_gen">ዲዛይን ቀይር</span></button>
+      </div>
+      <div class="v3d-stage" id="v3dStage">
+        <canvas id="arch3d"></canvas>
+        <div class="v3d-badges" id="v3dBadges"></div>
+        <div class="v3d-hud">
+          <button id="v3dZoomIn" title="Zoom in" aria-label="Zoom in">＋</button>
+          <button id="v3dZoomOut" title="Zoom out" aria-label="Zoom out">－</button>
+          <button id="v3dExplode" title="Explode floors" aria-label="Explode floors">↕</button>
+          <button id="v3dSpin" class="on" title="Auto-rotate" aria-label="Auto-rotate">⟳</button>
+          <button id="v3dLight" title="Day / Night" aria-label="Day / Night">🌙</button>
+          <button id="v3dReset" title="Reset view" aria-label="Reset view">⟲</button>
+        </div>
+        <div class="v3d-hint" id="v3dHint">👆 በጣትዎ ያሽከርክሩ · 🤏 ያጉሉ</div>
+      </div>
+      <div class="v3d-bar">
+        <div class="v3d-row">
+          <span class="small" style="font-weight:800;color:#334155" id="t_3d_stage">የግንባታ ደረጃ፦</span>
+          <div class="seg" id="stage3dSeg">
+            <button data-st="0" id="t_3d_s0">ስትራክቸር</button>
+            <button data-st="1" id="t_3d_s1">ከፊል</button>
+            <button data-st="2" class="on" id="t_3d_s2">ሙሉ ፊኒሺንግ</button>
+          </div>
+        </div>
+        <div class="style-grid" id="styleChips">
+          <button class="chip on" data-st="0" id="t_st0">ዲዛይን 1</button>
+          <button class="chip" data-st="1" id="t_st1">ዲዛይን 2</button>
+          <button class="chip" data-st="2" id="t_st2">ዲዛይን 3</button>
+          <button class="chip" data-st="3" id="t_st3">ዲዛይን 4</button>
+        </div>
+        <div class="v3d-row" style="margin-top:10px">
+          <span class="small" style="font-weight:800;color:#334155" id="t_3d_mix">የንግድ ወለሎች (ከምድር ጀምሮ)፦</span>
+          <div class="seg" id="comSeg3d">
+            <button data-cf="1" id="t_cf1">1 (ምድር)</button>
+            <button data-cf="2" class="on" id="t_cf2">2 (ምድር+1ኛ)</button>
+            <button data-cf="3" id="t_cf3">3 (ምድር–2ኛ)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-h">
+        <h2 id="t_3d_fl_h">📐 የወለል አጠቃቀም እና 2D ፕላን</h2>
+        <span class="mut small" id="t_3d_fl_sub">ወለሉን ነክተው በ3D እና በፕላን ይመልከቱ</span>
+      </div>
+      <div class="fl-strip" id="flStrip"></div>
+      <div class="fl-info" id="flInfo"></div>
+      <div class="plan-wrap" id="plan2d"></div>
+    </section>
+  </div>
 </div>
 <nav class="bnav" id="tabs"><div class="in">
   <button data-tab="cost" class="on"><span class="ic">🏗</span><span class="tx" id="t_tab_cost">ወጪ</span></button>
+  <button data-tab="3d"><span class="ic">🏛</span><span class="tx" id="t_tab_3d">3D ዲዛይን</span></button>
   <button data-tab="rent"><span class="ic">🏪</span><span class="tx" id="t_tab_rent">ኪራይ</span></button>
   <button data-tab="more"><span class="ic">🧾</span><span class="tx" id="t_tab_more">ዝርዝር</span></button>
 </div></nav>
@@ -535,7 +631,7 @@ const CAT_COLORS = ['#475569','#64748b','#0ea5e9','#6366f1','#8b5cf6','#a855f7',
 
 const DEF = {
   lang:'am',
-  plot:300,cov:70,bcov:90,nF:6,nB:1,h:3.2,bd:3.5,wwr:25,comFloors:3,units:2,toilets:3,doors:8,rebarInt:110,
+  plot:300,cov:70,bcov:90,nF:6,nB:1,h:3.2,bd:3.5,wwr:25,comFloors:2,archStyle:0,units:2,toilets:3,doors:8,rebarInt:110,
   quality:'standard',contractor:false,ohp:12,design:4,permit:1.5,superv:3,contingency:10,
   delay:6,duration:30,rLoc:16,fx:6,usdInfl:2.5,fxRate:161,currency:'ETB',bd_scen:2,
   upfront:20000000,monthly:1000000,incGrowth:10,target:2,rentAfter:1,slabMonths:1.5,finMonths:2,p1Shell:true,rentEach:true,
@@ -1120,7 +1216,7 @@ function renderLangText(){
   const SHORT = am ? {
     t_title:'የሕንፃ ወጪ ትንበያ', t_q_floors:'🏢 የወለል ብዛት', t_q_cov:'📐 የመሬት ሽፋን (ካርታ)',
     t_top_cov70:'70% · ሕጋዊ', t_top_cov85:'85%', t_top_cov100:'100% · ሙሉ ካርታ',
-    t_tab_cost:'ወጪ', t_tab_rent:'ኪራይ', t_tab_more:'ዝርዝር',
+    t_tab_cost:'ወጪ', t_tab_3d:'3D ዲዛይን', t_tab_rent:'ኪራይ', t_tab_more:'ዝርዝር', t_cta3d_m:'🏛 የሕንፃውን 3D ዲዛይን ይመልከቱ', t_cta3d_s:'ምድር+1ኛ ወለል ንግድ · የላይኛው መኖሪያ አፓርታማ · 360° ያሽከርክሩ',
     t_d6:'6 ወር', t_d12:'1 ዓመት', t_d18:'1.5 ዓመት', t_d24:'2 ዓመት',
     t_sec2:'⏱ መቼ ይጀመራል?', t_delay_lbl:'የመጀመሪያ ጊዜ', t_adv_infl:'⚙️ የዋጋ ጭማሪ ግምቶች', t_cards_h:'እያንዳንዱ ደረጃ ምን ያካትታል?',
     t_sec4:'🏪 የታችኛውን ወለሎች እያከራዩ መገንባት', t_sec4_sub:'ምድር ቤት፣ ምድር እና 1ኛ ወለልን ቀድሞ ጨርሶ በማከራየት፣ በኪራይ ቅድሚያው የላይኛውን መገንባት።',
@@ -1139,7 +1235,7 @@ function renderLangText(){
   } : {
     t_title:'Building Cost Forecast', t_q_floors:'🏢 Floors', t_q_cov:'📐 Plot coverage (Karta)',
     t_top_cov70:'70% · Legal', t_top_cov85:'85%', t_top_cov100:'100% · Full',
-    t_tab_cost:'Cost', t_tab_rent:'Rent', t_tab_more:'Details',
+    t_tab_cost:'Cost', t_tab_3d:'3D Design', t_tab_rent:'Rent', t_tab_more:'Details', t_cta3d_m:'🏛 View Interactive 3D Building Design', t_cta3d_s:'Commercial podium + Residential apartments · Rotate 360° & zoom',
     t_d6:'6 mo', t_d12:'1 yr', t_d18:'1.5 yr', t_d24:'2 yr',
     t_sec2:'⏱ When to start?', t_delay_lbl:'Start', t_adv_infl:'⚙️ Inflation assumptions', t_cards_h:'What each level includes',
     t_sec4:'🏪 Rent lower floors while building', t_sec4_sub:'Finish and rent the lower floors first, then use the advance rent to build the rest.',
@@ -1266,7 +1362,7 @@ function renderLabels(C){
 function renderAll(){
   const C=compute();
   renderLabels(C); renderPills(C); renderCards(C); renderForecast(C.rows); renderTiming(C); renderBreakdown(C);
-  renderBOQ(C); renderSim(C);
+  renderBOQ(C); renderSim(C); render3DUI(C);
 }
 
 /* ===================== INPUT BINDING ===================== */
@@ -1318,6 +1414,7 @@ function bindInputs(){
     document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));
     document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x.dataset.tab===tab));
     window.scrollTo({top:0,behavior:'smooth'});
+    if(tab==='3d') setTimeout(()=>{ render3DUI(compute()); drawArch3D(); kick3D(); }, 20);
   }));
   // close the ⋯ menu after any action or outside tap
   const menu=document.querySelector('.menu');
@@ -1328,7 +1425,882 @@ function bindInputs(){
 }
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),4200); }
 
-loadState(); bindInputs(); syncInputs(); setupDrag(); renderHistory(); renderAll();
+/* ===================== 3D ARCHITECTURAL PROPOSAL & 2D PLAN ===================== */
+const ARCH_STYLES = [
+  {
+    am:'ዲዛይን 1፦ ዘመናዊ አሉኮቦንድና ከርተን-ዎል',
+    en:'Proposal 1: Modern Alucobond & Curtain Wall',
+    wall:'#f4f1ea', wall2:'#e5dec9', accent:'#b45309', podium:'#1e293b',
+    glass:'#0284c7', glassTop:'#38bdf8', rail:'#38bdf8', sign:'#1d4ed8', fin:'#9a3412',
+    balType:'twin', planters:false
+  },
+  {
+    am:'ዲዛይን 2፦ ክላሲክ አርኬድና መንታ በረንዳ',
+    en:'Proposal 2: Colonnade Arcade & Wrap Balconies',
+    wall:'#f8fafc', wall2:'#cbd5e1', accent:'#334155', podium:'#334155',
+    glass:'#0369a1', glassTop:'#7dd3fc', rail:'#0ea5e9', sign:'#0f172a', fin:'#475569',
+    balType:'wrap', planters:false
+  },
+  {
+    am:'ዲዛይን 3፦ ቦሌ ካንቲሊቨር ቦክስ (ነዋሪና ንግድ)',
+    en:'Proposal 3: Shifting Cantilever Box Tower',
+    wall:'#f5f5f4', wall2:'#d6d3d1', accent:'#047857', podium:'#064e3b',
+    glass:'#0d9488', glassTop:'#5eead4', rail:'#2dd4bf', sign:'#065f46', fin:'#78350f',
+    balType:'box', planters:true
+  },
+  {
+    am:'ዲዛይን 4፦ የማዕዘን አትሪየም ፕላዛ',
+    en:'Proposal 4: Corner Atrium & Panoramic Residence',
+    wall:'#fafaf9', wall2:'#e7e5e4', accent:'#1d4ed8', podium:'#1e1b4b',
+    glass:'#2563eb', glassTop:'#93c5fd', rail:'#60a5fa', sign:'#1e40af', fin:'#1e3a8a',
+    balType:'ribbon', planters:true
+  }
+];
+
+const V3D = {
+  yaw: -0.62,
+  pitch: 0.38,
+  zoom: 1.0,
+  explode: 0,
+  explodeTarget: 0,
+  spin: true,
+  night: false,
+  stage: 2, // 0=grey, 1=semi, 2=full
+  selFloor: 'all', // 'all','B','G','F1','RES','ROOF'
+  ptrs: new Map(),
+  pinchDist: 0,
+  raf: 0
+};
+
+function hexRgb(h){
+  const v=parseInt(h.replace('#',''),16);
+  return [(v>>16)&255,(v>>8)&255,v&255];
+}
+function shadeCol(hex,f,alpha){
+  if(hex.startsWith('rgba')||hex.startsWith('rgb')) return hex;
+  const [r,g,b]=hexRgb(hex);
+  const c=x=>Math.max(0,Math.min(255,Math.round(x*f)));
+  return alpha!==undefined?`rgba(${c(r)},${c(g)},${c(b)},${alpha})`:`rgb(${c(r)},${c(g)},${c(b)})`;
+}
+
+function render3DUI(C){
+  const am=isAm(), g=C.g;
+  const stIdx=(S.archStyle||0)%ARCH_STYLES.length;
+  const st=ARCH_STYLES[stIdx];
+  const cf=Math.min(S.comFloors,g.above);
+  const resFl=Math.max(0,g.above-cf);
+  const elT=document.getElementById('v3dTitle');
+  if(!elT) return;
+  elT.textContent = am ? st.am : st.en;
+  const comTxt = cf===0 ? (am?'ንግድ የለውም':'No commercial')
+    : cf===1 ? (am?'ምድር (Ground) ሱቆች':'Ground floor shops')
+    : cf===2 ? (am?'ምድር + 1ኛ ወለል የንግድ':'Ground + 1st floor commercial')
+    : (am?`ከምድር–${cf-1}ኛ ወለል የንግድ (${cf} ወለል)`:`Ground–${ord(cf-1)} floor commercial (${cf} fl)`);
+  const resTxt = resFl>0
+    ? (am?`${resFl} የመኖሪያ አፓርታማ ወለሎች (${resFl*S.units} አፓርታማ)`:`${resFl} residential floors (${resFl*S.units} apts)`)
+    : (am?'ሙሉ የንግድ ሕንፃ':'All commercial');
+  document.getElementById('v3dSub').textContent = `${comTxt} · ${resTxt}`;
+  document.getElementById('t_3d_gen').textContent = am ? 'ዲዛይን ቀይር' : 'New Design';
+  document.getElementById('v3dHint').textContent = am ? '👆 በጣትዎ ያሽከርክሩ · 🤏 ያጉሉ' : '👆 Drag to rotate 360° · 🤏 Pinch to zoom';
+  document.getElementById('t_3d_stage').textContent = am ? 'የግንባታ ደረጃ፦' : 'Finish stage:';
+  document.getElementById('t_3d_s0').textContent = am ? 'ስትራክቸር' : 'Structure';
+  document.getElementById('t_3d_s1').textContent = am ? 'ከፊል' : 'Semi';
+  document.getElementById('t_3d_s2').textContent = am ? 'ሙሉ ፊኒሺንግ' : 'Full Finish';
+  document.getElementById('t_3d_mix').textContent = am ? 'የንግድ ወለሎች (ከምድር ጀምሮ)፦' : 'Commercial floors (from Ground):';
+  document.getElementById('t_cf1').textContent = am ? '1 (ምድር)' : '1 (Ground)';
+  document.getElementById('t_cf2').textContent = am ? '2 (ምድር+1ኛ)' : '2 (G + 1st)';
+  document.getElementById('t_cf3').textContent = am ? '3 (ምድር–2ኛ)' : '3 (G–2nd)';
+  document.getElementById('t_3d_fl_h').textContent = am ? '📐 የወለል አጠቃቀም እና 2D ፕላን' : '📐 Floor Program & 2D Floor Plan';
+  document.getElementById('t_3d_fl_sub').textContent = am ? 'ወለሉን ነክተው በ3D እና በፕላን ይመልከቱ' : 'Tap any zone to inspect in 3D & 2D';
+  for(let i=0;i<4;i++){
+    const b=document.getElementById('t_st'+i);
+    if(b){ b.textContent=am?`ዲዛይን ${i+1}`:`Style ${i+1}`; b.classList.toggle('on',i===stIdx); }
+  }
+  document.querySelectorAll('#stage3dSeg button').forEach(b=>b.classList.toggle('on',+b.dataset.st===V3D.stage));
+  document.querySelectorAll('#comSeg3d button').forEach(b=>b.classList.toggle('on',+b.dataset.cf===S.comFloors));
+
+  // Badges on top-left of 3D stage
+  const bHtml=[];
+  if(g.nB>0) bHtml.push(`<span class="v3d-b"><i style="background:#64748b"></i>${am?`${g.nB} ምድር ቤት (ሜጋዚን)`:`${g.nB} Basement`}</span>`);
+  if(cf>0) bHtml.push(`<span class="v3d-b"><i style="background:#0284c7"></i>${am?`${cf} የንግድ ወለል`:`${cf} Commercial`}</span>`);
+  if(resFl>0) bHtml.push(`<span class="v3d-b"><i style="background:#d97706"></i>${am?`${resFl} የመኖሪያ ወለል`:`${resFl} Residential`}</span>`);
+  document.getElementById('v3dBadges').innerHTML=bHtml.join('');
+
+  // Floor strip chips
+  const strip=[
+    {id:'all', am:'🏢 ሙሉ ሕንፃ', en:'🏢 Whole Building'},
+    ...(g.nB>0?[{id:'B', am:`ምድር ቤት (${g.nB})`, en:`Basement (${g.nB})`}]:[]),
+    {id:'G', am:'ምድር (ሱቆች)', en:'Ground (Shops)'},
+    ...(g.nF>=1?[{id:'F1', am:cf>=2?'1ኛ ወለል (ንግድ)':'1ኛ ወለል (መኖሪያ)', en:cf>=2?'1st Fl (Commercial)':'1st Fl (Apartments)'}]:[]),
+    ...(g.nF>=2?[{id:'RES', am:`2ኛ–${g.nF}ኛ (${resFl>0?'መኖሪያ አፓርታማ':'ንግድ'})`, en:`2nd–${ord(g.nF)} (${resFl>0?'Apartments':'Commercial'})`}]:[]),
+    {id:'ROOF', am:'ጣሪያና ሊፍት', en:'Rooftop & Lift'}
+  ];
+  if(!strip.some(s=>s.id===V3D.selFloor)) V3D.selFloor='all';
+  const flEl=document.getElementById('flStrip');
+  flEl.innerHTML=strip.map(s=>`<button class="chip ${s.id===V3D.selFloor?'on':''}" data-fl="${s.id}">${am?s.am:s.en}</button>`).join('');
+  flEl.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    V3D.selFloor=b.dataset.fl;
+    if(V3D.selFloor!=='all' && V3D.explodeTarget<0.45){
+      V3D.explodeTarget=0.65;
+      document.getElementById('v3dExplode').classList.add('on');
+    }
+    render3DUI(compute());
+    kick3D();
+  }));
+
+  // Floor info + 2D blueprint
+  renderFloorInfoAndPlan(C);
+  kick3D();
+}
+
+function renderFloorInfoAndPlan(C){
+  const am=isAm(), g=C.g, cf=Math.min(S.comFloors,g.above), resFl=Math.max(0,g.above-cf);
+  const f=V3D.selFloor;
+  let title='', desc='', right='', planMode='res';
+  const effA=a=>nf(a*S.eff/100,0);
+  if(f==='B' && g.nB>0){
+    planMode='base';
+    const rMo=g.BP*(S.eff/100)*S.rentB*(LOCM[S.loc]||1);
+    title = am ? `ምድር ቤት (Basement ሜጋዚን / መጋዘን) · ${nf(g.BP)} ካ.ሜ በወለል` : `Basement (Megazin / Storage & Parking) · ${nf(g.BP)} m²/level`;
+    desc = am ? `ከመሬት በታች ${g.nB} ወለል · የጭነት/መኪና መወጣጫ ራምፕ፣ 4 ሰፋፊ የጅምላ መጋዘኖች (ሜጋዚን)፣ ጀነሬተርና የውሃ ፓምፕ ክፍል` : `${g.nB} underground level(s) · Vehicle/cargo ramp, 4 megazin storage bays, generator & pump room`;
+    right = `${money(rMo,0)}${am?'/በወር':'/mo'}`;
+  } else if(f==='G'){
+    planMode='com';
+    const rMo=g.FP*(S.eff/100)*S.rentG*(LOCM[S.loc]||1);
+    title = am ? `ምድር ወለል (Ground Floor ሱቆች) · ${nf(g.FP)} ካ.ሜ` : `Ground Floor Retail Shops · ${nf(g.FP)} m²`;
+    desc = am ? `6 የፊትና የጎን ሱቆች (እያንዳንዳቸው ~28 ካ.ሜ)፣ የመኖሪያ አፓርታማ ዋና መግቢያ ሎቢ፣ ሊፍትና ደረጃ፣ 3 መጸዳጃ ቤቶች` : `6 street-front & arcade retail shops (~28 m² each), residential entrance lobby, elevator/stair core, 3 toilets`;
+    right = `${money(rMo,0)}${am?'/በወር':'/mo'}`;
+  } else if(f==='F1'){
+    planMode = cf>=2 ? 'com' : 'res';
+    const rMo=g.FP*(S.eff/100)*S.rent1*(LOCM[S.loc]||1);
+    title = am ? `1ኛ ወለል (${cf>=2?'ሾውሩም / የንግድ ማዕከል':'መኖሪያ አፓርታማ'}) · ${nf(g.FP)} ካ.ሜ` : `1st Floor (${cf>=2?'Commercial Showroom & Mall':'Residential Apartments'}) · ${nf(g.FP)} m²`;
+    desc = cf>=2
+      ? (am ? `ሙሉ የመስታወት ከርተን-ዎል የንግድ ክፍሎች / ባንክ / ሾውሩም (የተጣራ ${effA(g.FP)} ካ.ሜ የሚከራይ)፣ ሊፍትና 3 መጸዳጃ ቤቶች` : `Full curtain-wall commercial showrooms / bank / offices (${effA(g.FP)} m² net rentable), elevator core & 3 toilets`)
+      : (am ? `${S.units} ባለ 3-መኝታ ዘመናዊ አፓርታማዎች (እያንዳንዳቸው ~${nf(g.FP*0.42,0)} ካ.ሜ) ከፊት በረንዳ ጋር` : `${S.units} family apartments (~${nf(g.FP*0.42,0)} m² each) with front balconies`);
+    right = `${money(rMo,0)}${am?'/በወር':'/mo'}`;
+  } else if(f==='ROOF'){
+    planMode='res';
+    title = am ? `ጣሪያ (Rooftop Terrace፣ የሊፍት ቤትና የውሃ ታንከሮች) · ${nf(g.FP)} ካ.ሜ` : `Rooftop Terrace, Elevator Penthouse & Water Tanks · ${nf(g.FP)} m²`;
+    desc = am ? `የውሃ መከላከያ (Waterproofing) የተሰራለት የጋራ ቴራስ፣ ${g.elev?'የሊፍት ማሽን ክፍል፣ ':''}2 የውሃ ታንከሮች (10,000 ሊትር) እና ፐርጎላ` : `Waterproofed communal roof deck, ${g.elev?'elevator machine penthouse, ':''}twin water tanks & shaded pergola`;
+    right = am ? 'የጋራ አገልግሎት' : 'Common service';
+  } else if(f==='RES'){
+    planMode='res';
+    const rMo=g.FP*(S.eff/100)*S.rentUp*(LOCM[S.loc]||1);
+    title = am ? `ከ${cf}ኛ–${g.nF}ኛ ወለል (የመኖሪያ አፓርታማዎች) · ${nf(g.FP)} ካ.ሜ በወለል` : `Floors ${cf}–${g.nF} (Residential Apartments) · ${nf(g.FP)} m²/floor`;
+    desc = am ? `በየወለሉ ${S.units} ሰፋፊ አፓርታማዎች (እያንዳንዱ ሳሎን፣ የፊት በረንዳ፣ 3 መኝታ፣ ኪችንና 2 መታጠቢያ ያለው) · በአጠቃላይ ${resFl*S.units} አፓርታማዎች` : `${S.units} spacious apartments per floor (Living/Dining, front balcony, 3 bedrooms, kitchen, 2 baths) · ${resFl*S.units} units total`;
+    right = `${money(rMo,0)}${am?'/በወለል':'/fl'}`;
+  } else {
+    planMode = resFl>0 ? 'res' : 'com';
+    title = am ? `G+${g.nF}${g.nB?' + '+g.nB+' ምድር ቤት':''} · ጠቅላላ ${nf(g.GFA)} ካ.ሜ (${g.levels} ወለሎች)` : `G+${g.nF}${g.nB?' + '+g.nB+' Basement':''} · Total ${nf(g.GFA)} m² (${g.levels} levels)`;
+    desc = am ? `ቦታ፦ ${nf(S.plot)} ካ.ሜ ካርታ · የሕንፃ ሽፋን፦ ${nf(g.FP)} ካ.ሜ (${S.cov}%) · ${cf} የንግድ + ${resFl} የመኖሪያ ወለሎች (${resFl*S.units} አፓርታማ)` : `Plot: ${nf(S.plot)} m² Karta · Footprint: ${nf(g.FP)} m² (${S.cov}%) · ${cf} commercial + ${resFl} residential floors (${resFl*S.units} apts)`;
+    right = `${nf(g.levels*3.2+1.2,1)} m ${am?'ቁመት':'tall'}`;
+  }
+  document.getElementById('flInfo').innerHTML=`<div><div class="t">${title}</div><div class="d">${desc}</div></div><div class="r">${right}</div>`;
+  renderPlanSVG(C, planMode);
+}
+
+function renderPlanSVG(C, mode){
+  const am=isAm(), g=C.g;
+  const pW=Math.sqrt(S.plot*0.75), pD=S.plot/pW;
+  const ratio=Math.sqrt(S.cov/100);
+  const bW=pW*ratio, bD=pD*ratio;
+  const W=640, H=340, pad=36;
+  const sc=Math.min((W-pad*2)/pW, (H-pad*2-18)/pD);
+  const pw=pW*sc, pd=pD*sc, bw=bW*sc, bd=bD*sc;
+  const px=(W-pw)/2, py=(H-pd-14)/2;
+  const bx=px+(pw-bw)*0.35, by=py+(pd-bd)*0.5; // leave right side for ramp when <100%
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="2D Architectural Floor Plan">`;
+  // Blueprint background grid
+  s+=`<rect width="${W}" height="${H}" rx="10" fill="#0f172a"/>`;
+  for(let x=20;x<W;x+=20) s+=`<line x1="${x}" y1="0" x2="${x}" y2="${H}" stroke="#1e293b" stroke-width="1"/>`;
+  for(let y=20;y<H;y+=20) s+=`<line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="#1e293b" stroke-width="1"/>`;
+  // Karta boundary
+  s+=`<rect x="${px}" y="${py}" width="${pw}" height="${pd}" fill="rgba(30,41,59,.55)" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+  s+=`<text x="${px+6}" y="${py+14}" fill="#93c5fd" font-size="11" font-weight="700">${am?`ካርታ ወሰን (${nf(pW,1)}m × ${nf(pD,1)}m = ${nf(S.plot)} ካ.ሜ)`:`Karta Boundary (${nf(pW,1)}m × ${nf(pD,1)}m = ${nf(S.plot)} m²)`}</text>`;
+  // Street at bottom
+  s+=`<text x="${W/2}" y="${H-6}" text-anchor="middle" fill="#38bdf8" font-size="11.5" font-weight="800">⬇ ${am?'የአጠና ተራ ዋና መንገድ (የፊት ገጽታ / Front Street)':'Atena Tera Main Street (Frontage)'} ⬇</text>`;
+
+  // Side ramp if basement > 0 and cov < 98
+  if(g.nB>0){
+    const rx=bx+bw+2, rw=Math.max(18,px+pw-rx-2);
+    s+=`<rect x="${rx}" y="${by+bd*0.15}" width="${rw}" height="${bd*0.85}" fill="rgba(100,116,139,.35)" stroke="#94a3b8" stroke-width="1"/>`;
+    s+=`<text x="${rx+rw/2}" y="${by+bd*0.6}" text-anchor="middle" fill="#cbd5e1" font-size="9.5" transform="rotate(-90 ${rx+rw/2} ${by+bd*0.6})">${am?'የምድር ቤት ራምፕ':'Basement Ramp'}</text>`;
+  }
+
+  // Building footprint outer shell
+  s+=`<rect x="${bx}" y="${by}" width="${bw}" height="${bd}" fill="#1e293b" stroke="#f8fafc" stroke-width="2.5"/>`;
+  // Core (Elevator + Stairs at top-center of building)
+  const cw=bw*0.24, ch=bd*0.28, cx=bx+(bw-cw)/2, cy=by+4;
+  s+=`<rect x="${cx}" y="${cy}" width="${cw}" height="${ch}" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>`;
+  s+=`<line x1="${cx+cw*0.5}" y1="${cy}" x2="${cx+cw*0.5}" y2="${cy+ch}" stroke="#94a3b8" stroke-width="1"/>`;
+  s+=`<text x="${cx+cw*0.25}" y="${cy+ch*0.55}" text-anchor="middle" fill="#38bdf8" font-size="9.5" font-weight="700">${am?'ሊፍት':'Lift'}</text>`;
+  s+=`<text x="${cx+cw*0.75}" y="${cy+ch*0.55}" text-anchor="middle" fill="#e2e8f0" font-size="9.5">${am?'ደረጃ':'Stairs'}</text>`;
+
+  if(mode==='com'){
+    // Commercial Podium Floor Plan: 6 retail shops + central corridor
+    const corY=cy+ch, corH=bd*0.18;
+    s+=`<rect x="${bx+3}" y="${corY}" width="${bw-6}" height="${corH}" fill="#0f172a" stroke="#475569" stroke-dasharray="3 3"/>`;
+    s+=`<text x="${bx+bw/2}" y="${corY+corH*0.62}" text-anchor="middle" fill="#94a3b8" font-size="10">${am?'የንግድ መተላለፊያ ኮሪደር እና መግቢያ ሎቢ':'Commercial Arcade Corridor & Lobby'}</text>`;
+    // 3 front shops (facing street at bottom)
+    const shY=corY+corH, shH=by+bd-shY-2, shW=(bw-6)/3;
+    const shopArea=Math.round(g.FP*0.13);
+    for(let i=0;i<3;i++){
+      const sx=bx+3+i*shW;
+      s+=`<rect x="${sx}" y="${shY}" width="${shW}" height="${shH}" fill="rgba(2,132,199,.22)" stroke="#38bdf8" stroke-width="1.5"/>`;
+      s+=`<text x="${sx+shW/2}" y="${shY+shH*0.46}" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">${am?'ሱቅ '+(i+1):'Shop '+(i+1)}</text>`;
+      s+=`<text x="${sx+shW/2}" y="${shY+shH*0.72}" text-anchor="middle" fill="#7dd3fc" font-size="9.5">${shopArea} ${am?'ካ.ሜ':'m²'}</text>`;
+    }
+    // 2 rear commercial spaces + toilets flanking the core
+    const sideW=(bw-cw-8)/2;
+    s+=`<rect x="${bx+3}" y="${cy}" width="${sideW}" height="${ch}" fill="rgba(2,132,199,.16)" stroke="#38bdf8" stroke-width="1.2"/>`;
+    s+=`<text x="${bx+3+sideW/2}" y="${cy+ch*0.55}" text-anchor="middle" fill="#e2e8f0" font-size="10">${am?'ሱቅ 4 / ቢሮ':'Shop 4 / Office'}</text>`;
+    s+=`<rect x="${cx+cw+2}" y="${cy}" width="${sideW}" height="${ch}" fill="rgba(2,132,199,.16)" stroke="#38bdf8" stroke-width="1.2"/>`;
+    s+=`<text x="${cx+cw+2+sideW/2}" y="${cy+ch*0.55}" text-anchor="middle" fill="#e2e8f0" font-size="10">${am?'ሱቅ 5 + መጸዳጃ':'Shop 5 + WC'}</text>`;
+  } else if(mode==='base'){
+    // Basement Megazin Plan: 4 storage bays + central aisle
+    const mw=(bw-10)/2, mh=(bd-ch-12)/2;
+    const bays=[
+      [bx+4, cy+ch+4, am?'ሜጋዚን 1 (መጋዘን)':'Megazin Bay 1'],
+      [bx+6+mw, cy+ch+4, am?'ሜጋዚን 2 (መጋዘን)':'Megazin Bay 2'],
+      [bx+4, cy+ch+6+mh, am?'ሜጋዚን 3 (መጋዘን)':'Megazin Bay 3'],
+      [bx+6+mw, cy+ch+6+mh, am?'ሜጋዚን 4 / ፓርኪንግ':'Megazin 4 / Parking']
+    ];
+    bays.forEach(([x,y,lbl])=>{
+      s+=`<rect x="${x}" y="${y}" width="${mw}" height="${mh}" fill="rgba(100,116,139,.25)" stroke="#94a3b8" stroke-width="1.3" stroke-dasharray="4 2"/>`;
+      s+=`<text x="${x+mw/2}" y="${y+mh*0.55}" text-anchor="middle" fill="#f1f5f9" font-size="10.5" font-weight="700">${lbl}</text>`;
+    });
+  } else {
+    // Residential Apartment Plan (2 Luxury 3-Bed Apartments per floor: Left Wing Apt A & Right Wing Apt B)
+    const midX=bx+bw/2;
+    s+=`<line x1="${midX}" y1="${cy+ch}" x2="${midX}" y2="${by+bd}" stroke="#f59e0b" stroke-width="2"/>`;
+    const aptArea=Math.round(g.FP*0.42);
+    [[bx+3, midX-bx-4, am?'አፓርታማ A':'Apartment A'], [midX+1, bw/2-4, am?'አፓርታማ B':'Apartment B']].forEach(([ax,aw,name],idx)=>{
+      // Living + Dining at front
+      const livY=cy+ch+4, livH=(by+bd-livY)-18;
+      s+=`<rect x="${ax}" y="${livY}" width="${aw}" height="${livH*0.54}" fill="rgba(217,119,6,.16)" stroke="#f59e0b" stroke-width="1.2"/>`;
+      s+=`<text x="${ax+aw/2}" y="${livY+livH*0.26}" text-anchor="middle" fill="#fde68a" font-size="10.5" font-weight="800">${name} (${aptArea} ${am?'ካ.ሜ':'m²'})</text>`;
+      s+=`<text x="${ax+aw/2}" y="${livY+livH*0.44}" text-anchor="middle" fill="#fed7aa" font-size="9.5">${am?'ሳሎን እና መመገቢያ':'Living & Dining'}</text>`;
+      // Bedrooms + Kitchen row
+      const rY=livY+livH*0.54+2, rH=livH*0.44;
+      s+=`<rect x="${ax}" y="${rY}" width="${aw*0.52}" height="${rH}" fill="rgba(16,185,129,.16)" stroke="#34d399" stroke-width="1"/>`;
+      s+=`<text x="${ax+aw*0.26}" y="${rY+rH*0.56}" text-anchor="middle" fill="#a7f3d0" font-size="9.5">${am?'ዋና መኝታ + መታጠቢያ':'Master Bed + Bath'}</text>`;
+      s+=`<rect x="${ax+aw*0.54}" y="${rY}" width="${aw*0.46}" height="${rH}" fill="rgba(56,189,248,.15)" stroke="#38bdf8" stroke-width="1"/>`;
+      s+=`<text x="${ax+aw*0.77}" y="${rY+rH*0.56}" text-anchor="middle" fill="#bae6fd" font-size="9.5">${am?'2 መኝታ + ኪችን':'2 Beds + Kitchen'}</text>`;
+      // Front cantilevered balcony protruding toward street
+      const balW=aw*0.78, balX=idx===0?ax+4:ax+aw-balW-4, balY=by+bd-12;
+      s+=`<rect x="${balX}" y="${balY}" width="${balW}" height="15" rx="2" fill="rgba(56,189,248,.28)" stroke="#38bdf8" stroke-width="1.5"/>`;
+      s+=`<text x="${balX+balW/2}" y="${balY+11}" text-anchor="middle" fill="#e0f2fe" font-size="9" font-weight="700">${am?'የፊት በረንዳ (Balcony)':'Front Balcony'}</text>`;
+    });
+  }
+
+  // Structural column dots
+  for(let ix=0;ix<=3;ix++) for(let iz=0;iz<=3;iz++){
+    const cx2=bx+4+ix*(bw-8)/3, cy2=by+4+iz*(bd-8)/3;
+    s+=`<rect x="${cx2-3}" y="${cy2-3}" width="6" height="6" fill="#f8fafc" stroke="#0f172a" stroke-width="1"/>`;
+  }
+  s+=`</svg>`;
+  document.getElementById('plan2d').innerHTML=s;
+}
+
+function drawArch3D(){
+  const cv=document.getElementById('arch3d');
+  if(!cv) return;
+  const stageEl=document.getElementById('v3dStage');
+  const dpr=Math.min(window.devicePixelRatio||1, 2);
+  const W=stageEl.clientWidth||360, H=stageEl.clientHeight||390;
+  if(cv.width!==Math.round(W*dpr)||cv.height!==Math.round(H*dpr)){
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+  }
+  const ctx=cv.getContext('2d');
+  ctx.save();
+  ctx.scale(dpr,dpr);
+
+  const C=compute(), g=C.g, am=isAm();
+  const stIdx=(S.archStyle||0)%ARCH_STYLES.length;
+  const st=ARCH_STYLES[stIdx];
+  const stage=V3D.stage; // 0=grey, 1=semi, 2=full
+  const night=V3D.night;
+
+  // Sky / Backdrop
+  const sky=ctx.createLinearGradient(0,0,0,H);
+  if(night){
+    sky.addColorStop(0,'#060b19');
+    sky.addColorStop(0.6,'#0f172a');
+    sky.addColorStop(1,'#1e293b');
+  } else {
+    sky.addColorStop(0,'#0f294a');
+    sky.addColorStop(0.55,'#1e4b7a');
+    sky.addColorStop(1,'#dbeafe');
+  }
+  ctx.fillStyle=sky;
+  ctx.fillRect(0,0,W,H);
+
+  // Subtle stars in night mode
+  if(night){
+    ctx.fillStyle='rgba(255,255,255,0.55)';
+    for(let i=0;i<28;i++){
+      const sx=((i*97)%W), sy=((i*53)%Math.floor(H*0.45));
+      ctx.fillRect(sx,sy,1.5,1.5);
+    }
+  }
+
+  // Real-world dimensions in meters
+  const pW=Math.sqrt(S.plot*0.75), pD=S.plot/pW;
+  const ratio=Math.sqrt(S.cov/100);
+  const bW=pW*ratio, bD=pD*ratio;
+  const bRatio=Math.sqrt(S.bcov/100);
+  const baseW=pW*bRatio, baseD=pD*bRatio;
+  const cf=Math.min(S.comFloors,g.above);
+  const exGap=V3D.explode*1.65; // vertical gap in meters when exploded
+
+  // Compute floor Y ranges
+  const floorBands=[];
+  let curY=0;
+  for(let i=0;i<g.above;i++){
+    const fh = i===0 ? Math.max(3.6,S.h+0.4) : i<cf ? Math.max(3.4,S.h+0.2) : S.h;
+    const y0 = curY + i*exGap;
+    const y1 = y0 + fh;
+    const zone = i===0 ? 'G' : (i===1 ? 'F1' : 'RES');
+    floorBands.push({idx:i, type:i<cf?'com':'res', zone, y0, y1, fh});
+    curY += fh;
+  }
+  const roofY0 = curY + g.above*exGap;
+  const totH = roofY0 + 3.2;
+  const baseDepth = g.nB * S.bd;
+
+  // Camera setup: camera sits at (eyeX, eyeY, eyeZ) looking at (0, targetY, 0)
+  const targetY = (totH - baseDepth*0.3)*0.45;
+  const cosY=Math.cos(V3D.yaw), sinY=Math.sin(V3D.yaw);
+  const cosP=Math.cos(V3D.pitch), sinP=Math.sin(V3D.pitch);
+  const span=Math.max(pW*1.35, pD*1.35, (totH+baseDepth)*0.92);
+  const camDist=span*2.25;
+  const fov=(Math.min(W,H)*1.48)*V3D.zoom;
+  const cx=W*0.5, cy=H*0.54;
+  const eyeX = -camDist * cosP * sinY;
+  const eyeY = targetY + camDist * sinP;
+  const eyeZ = camDist * cosP * cosY;
+
+  function proj(x,y,z){
+    const dy=y-targetY;
+    const x1 = x*cosY + z*sinY;
+    const z1 = -x*sinY + z*cosY;
+    const y2 = dy*cosP - z1*sinP;
+    const zCam = camDist - (z1*cosP + dy*sinP);
+    const sc = fov/Math.max(1,zCam);
+    return {x:cx+x1*sc, y:cy-y2*sc, z:zCam, sc};
+  }
+
+  // Light direction (sun from front-top-right)
+  const lx=0.48, ly=0.74, lz=0.47;
+  const faces=[];
+
+  function addQuad(pts3d, col, opts={}){
+    const a=pts3d[0], b=pts3d[1], c=pts3d[2], d=pts3d[3];
+    const ux=b[0]-a[0], uy=b[1]-a[1], uz=b[2]-a[2];
+    const vx=c[0]-a[0], vy=c[1]-a[1], vz=c[2]-a[2];
+    let nx=uy*vz-uz*vy, ny=uz*vx-ux*vz, nz=ux*vy-uy*vx;
+    const nl=Math.hypot(nx,ny,nz)||1; nx/=nl; ny/=nl; nz/=nl;
+
+    const mx=(a[0]+b[0]+c[0]+d[0])*0.25;
+    const my=(a[1]+b[1]+c[1]+d[1])*0.25;
+    const mz=(a[2]+b[2]+c[2]+d[2])*0.25;
+
+    // Exact 3D backface culling against camera eye vector
+    if(!opts.twoSided){
+      const vxEye = eyeX - mx, vyEye = eyeY - my, vzEye = eyeZ - mz;
+      if(nx*vxEye + ny*vyEye + nz*vzEye <= 0) return null;
+    }
+
+    const p2=pts3d.map(p=>proj(p[0],p[1],p[2]));
+    const dot=nx*lx + ny*ly + nz*lz;
+    const light = opts.unlit ? 1 : (night ? (0.45 + Math.max(0,dot)*0.40) : (0.66 + Math.max(0,dot)*0.38));
+    const fill = opts.rawCol ? col : shadeCol(col, light, opts.alpha);
+
+    const dEye = Math.hypot(eyeX-mx, eyeY-my, eyeZ-mz);
+
+    const decals=(opts.decals||[]).map(dc=>({
+      pts:dc.pts.map(q=>proj(q[0],q[1],q[2])),
+      fill:dc.rawCol?dc.col:shadeCol(dc.col, dc.unlit?1:light, dc.alpha),
+      stroke:dc.stroke
+    }));
+
+    const fObj={
+      pts:p2, fill, stroke:opts.stroke||null, lineW:opts.lineW||0.7,
+      z:dEye - (opts.bias||0), decals, dim:opts.dim||false
+    };
+    faces.push(fObj);
+    return fObj;
+  }
+
+  // Helper to create a 3D axis-aligned box [x0,y0,z0] -> [x1,y1,z1]
+  // Face order & winding (counter-clockwise when viewed from outside)
+  function addBox(x0,y0,z0,x1,y1,z1,cols,opts={}){
+    const c = typeof cols==='string' ? {all:cols} : cols;
+    const d = opts.decals||{};
+    const b = opts.bias||0;
+    const st = opts.stroke;
+    const dm = opts.dim||false;
+    // Front (+z = z1)
+    addQuad([[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]], c.front||c.side||c.all, {stroke:st,bias:b,decals:d.front,alpha:opts.alpha,dim:dm});
+    // Back (-z = z0)
+    addQuad([[x1,y0,z0],[x0,y0,z0],[x0,y1,z0],[x1,y1,z0]], c.back||c.side||c.all, {stroke:st,bias:b,decals:d.back,alpha:opts.alpha,dim:dm});
+    // Right (+x = x1)
+    addQuad([[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1]], c.right||c.side||c.all, {stroke:st,bias:b,decals:d.right,alpha:opts.alpha,dim:dm});
+    // Left (-x = x0)
+    addQuad([[x0,y0,z1],[x0,y1,z1],[x0,y1,z0],[x0,y0,z0]], c.left||c.side||c.all, {stroke:st,bias:b,decals:d.left,alpha:opts.alpha,dim:dm});
+    // Top (+y = y1)
+    if(c.top!==null) addQuad([[x0,y1,z0],[x0,y1,z1],[x1,y1,z1],[x1,y1,z0]], c.top||c.all, {stroke:st,bias:b,decals:d.top,alpha:opts.alpha,dim:dm});
+    // Bottom (-y = y0)
+    if(opts.bottom) addQuad([[x0,y0,z1],[x0,y0,z0],[x1,y0,z0],[x1,y0,z1]], c.bottom||c.all, {stroke:st,bias:b,alpha:opts.alpha,dim:dm});
+  }
+
+  // Helper to create rectangular window/panel decal on a face
+  const zFront = (u0,v0,u1,v1,z,col,stroke,unlit)=>({pts:[[u0,v0,z],[u1,v0,z],[u1,v1,z],[u0,v1,z]],col,stroke,unlit});
+  const zBack  = (u0,v0,u1,v1,z,col,stroke,unlit)=>({pts:[[u1,v0,z],[u0,v0,z],[u0,v1,z],[u1,v1,z]],col,stroke,unlit});
+  const xRight = (z0,v0,z1,v1,x,col,stroke,unlit)=>({pts:[[x,v0,z1],[x,v0,z0],[x,v1,z0],[x,v1,z1]],col,stroke,unlit});
+  const xLeft  = (z0,v0,z1,v1,x,col,stroke,unlit)=>({pts:[[x,v0,z0],[x,v0,z1],[x,v1,z1],[x,v1,z0]],col,stroke,unlit});
+
+  const isZoneDim = z => V3D.selFloor!=='all' && V3D.selFloor!==z;
+
+  // 1. GROUND PLOT (300 m² Karta) & ATENA TERA STREET
+  const hx=pW/2, hz=pD/2;
+  // Surrounding site pad
+  addQuad([[-hx-3.5,0,hz+7],[hx+3.5,0,hz+7],[hx+3.5,0,-hz-3],[-hx-3.5,0,-hz-3]], night?'#1e293b':'#cbd5e1', {bias:-18,twoSided:true});
+  // Karta 300 m² compound paved surface
+  addQuad([[-hx,0.02,hz],[hx,0.02,hz],[hx,0.02,-hz],[-hx,0.02,-hz]], night?'#334155':'#e2e8f0', {stroke:'#3b82f6',lineW:1.5,bias:-15,twoSided:true});
+  // Street sidewalk + asphalt in front (+z)
+  addQuad([[-hx-3.5,0.04,hz+1.8],[hx+3.5,0.04,hz+1.8],[hx+3.5,0.04,hz],[-hx-3.5,0.04,hz]], night?'#475569':'#f1f5f9', {stroke:'#94a3b8',bias:-14,twoSided:true});
+  addQuad([[-hx-3.5,0.03,hz+6.6],[hx+3.5,0.03,hz+6.6],[hx+3.5,0.03,hz+1.8],[-hx-3.5,0.03,hz+1.8]], night?'#0f172a':'#334155', {bias:-14,twoSided:true});
+  // Dashed white road centerline
+  for(let rx=-hx-2;rx<hx+2;rx+=2.8){
+    addQuad([[rx,0.05,hz+4.35],[rx+1.4,0.05,hz+4.35],[rx+1.4,0.05,hz+4.1],[rx,0.05,hz+4.1]], '#f8fafc', {unlit:true,bias:-13,twoSided:true});
+  }
+
+  // Building footprint offset (leave right side +x for basement ramp if cov < 96%)
+  const bx0 = -bW/2 - (pW-bW)*0.12, bx1 = bx0 + bW;
+  const bz0 = -bD/2, bz1 = bD/2;
+
+  // 2. BASEMENT LEVELS (B1..Bn)
+  if(g.nB>0){
+    const dimB=isZoneDim('B');
+    const al=dimB?0.22:1;
+    const bbx0=-baseW/2, bbx1=baseW/2, bbz0=-baseD/2, bbz1=baseD/2;
+    for(let b=1;b<=g.nB;b++){
+      const by1 = -(b-1)*(S.bd + exGap*0.7) - (V3D.explode>0?0.5:0);
+      const by0 = by1 - S.bd;
+      // Basement slab & retaining walls
+      addBox(bbx0,by0,bbz0,bbx1,by0+0.28,bbz1, '#475569', {alpha:al,dim:dimB,stroke:'rgba(148,163,184,0.4)'});
+      const bDecF=[], bDecR=[];
+      const bayW=(bbx1-bbx0)/3;
+      for(let i=0;i<3;i++){
+        const u0=bbx0+0.35+i*bayW, u1=u0+bayW-0.7;
+        bDecF.push(zFront(u0,by0+0.35,u1,by1-0.35,bbz1, stage===0?'#1e293b':'#334155', '#94a3b8'));
+      }
+      // Ramp entrance shutter on right wall
+      bDecR.push(xRight(bbz0+0.8,by0+0.3,bbz0+3.6,by1-0.3,bbx1, night?'#fbbf24':'#1e293b', '#38bdf8', night));
+      addBox(bbx0,by0+0.28,bbz0,bbx1,by1,bbz1, {all:'#64748b',top:'#475569'}, {
+        alpha:al, dim:dimB, stroke:'rgba(15,23,42,0.35)',
+        decals:{front:bDecF, right:bDecR}
+      });
+    }
+    // Side driveway ramp cut on right side (+x)
+    if(hx-bx1>0.6){
+      addBox(bx1+0.15,-Math.min(2.6,baseDepth*0.7),bz0+0.5,hx-0.15,0.05,bz1-0.2, '#475569', {alpha:al,stroke:'#64748b'});
+    }
+  }
+
+  // 3. ABOVE-GROUND FLOORS (Ground + 1..nF)
+  const glassCol = night ? '#fde68a' : st.glass;
+  const glassHi  = night ? '#fef08a' : st.glassTop;
+
+  floorBands.forEach(fb=>{
+    const {idx,type,zone,y0,y1,fh}=fb;
+    const dimF=isZoneDim(zone);
+    const al=dimF?0.18:1;
+    const slabH=0.26;
+
+    // Floor structural concrete slab
+    const slabOver = (idx===cf && cf>0 && stage>0) ? 0.45 : 0.08; // Podium cornice overhang above commercial floors!
+    const slabCol = stage===0 ? '#94a3b8' : (idx===cf && cf>0 ? st.podium : '#cbd5e1');
+    addBox(bx0-slabOver, y0, bz0-slabOver, bx1+slabOver, y0+slabH, bz1+slabOver, slabCol, {
+      alpha:al, dim:dimF, stroke:'rgba(15,23,42,0.28)', bottom:V3D.explode>0.05
+    });
+
+    const wy0=y0+slabH, wy1=y1;
+
+    // STAGE 0: GREY STRUCTURE (columns + open slabs + HCB block core)
+    if(stage===0){
+      // Core box
+      const cx0=(bx0+bx1)*0.5-bW*0.14, cx1=(bx0+bx1)*0.5+bW*0.14;
+      addBox(cx0,wy0,bz0+0.4,cx1,wy1,bz0+bD*0.36, '#64748b', {alpha:al,stroke:'#334155'});
+      // Low HCB block infill parapet
+      addBox(bx0+0.2,wy0,bz0+0.2,bx1-0.2,wy0+fh*0.34,bz1-0.2, '#78716c', {alpha:al,stroke:'#44403c'});
+      // Perimeter + interior RC columns (4 x 4 grid)
+      for(let ix=0;ix<=3;ix++) for(let iz=0;iz<=2;iz++){
+        if(ix>0&&ix<3&&iz>0&&iz<2) continue;
+        const cxp=bx0+0.15+ix*(bW-0.3)/3, czp=bz0+0.15+iz*(bD-0.3)/2;
+        addBox(cxp-0.22,wy0,czp-0.22,cxp+0.22,wy1,czp+0.22, '#cbd5e1', {alpha:al,stroke:'#475569'});
+      }
+      return;
+    }
+
+    // STAGE 1 (SEMI-FINISHED) & STAGE 2 (FULLY FINISHED)
+    if(type==='com'){
+      // COMMERCIAL PODIUM FLOOR (Ground or 1st Floor Showroom)
+      const isGround = idx===0;
+      const wallC = stage===1 ? '#94a3b8' : st.podium;
+      const winC  = stage===1 ? '#475569' : (night ? '#fef08a' : st.glass);
+      const decF=[], decB=[], decL=[], decR=[];
+      const nBays=3, bayW=(bW-0.8)/nBays;
+
+      for(let i=0;i<nBays;i++){
+        const u0=bx0+0.4+i*bayW+0.14, u1=bx0+0.4+(i+1)*bayW-0.14;
+        if(stage===1 && isGround){
+          // Semi-finished ground floor: steel rolling shutters!
+          decF.push(zFront(u0,wy0+0.05,u1,wy1-0.45,bz1, '#64748b', '#334155'));
+        } else {
+          // Full-height commercial storefront / curtain-wall glass
+          decF.push(zFront(u0,wy0+0.08,u1,wy1-0.38,bz1, winC, '#bae6fd', night&&stage===2));
+          // Upper transom glass highlight
+          if(stage===2 && !night){
+            decF.push(zFront(u0+0.08,wy1-1.05,u1-0.08,wy1-0.44,bz1, glassHi, null, true));
+          }
+        }
+      }
+      // Commercial fascia signband above Ground floor
+      if(isGround && stage===2){
+        decF.push(zFront(bx0+0.25,wy1-0.34,bx1-0.25,wy1-0.04,bz1, st.sign, '#93c5fd', true));
+      }
+      // Side showroom glazing (Left & Right walls)
+      for(let j=0;j<3;j++){
+        const zA=bz0+0.6+j*(bD-1.2)/3+0.15, zB=bz0+0.6+(j+1)*(bD-1.2)/3-0.15;
+        decL.push(xLeft(zA,wy0+0.25,zB,wy1-0.35,bx0, winC, '#93c5fd', night&&stage===2));
+        decR.push(xRight(zA,wy0+0.25,zB,wy1-0.35,bx1, winC, '#93c5fd', night&&stage===2));
+      }
+      // Back windows
+      for(let i=0;i<3;i++){
+        const u0=bx0+0.6+i*(bW-1.2)/3+0.2, u1=bx0+0.6+(i+1)*(bW-1.2)/3-0.2;
+        decB.push(zBack(u0,wy0+0.6,u1,wy1-0.4,bz0, winC, '#94a3b8', night&&stage===2));
+      }
+
+      const inset = isGround ? 0.35 : 0.05; // Ground arcade recess
+      addBox(bx0+inset, wy0, bz0, bx1-inset, wy1, bz1-inset, {all:wallC,top:V3D.explode>0.05?wallC:null}, {
+        alpha:al, dim:dimF, stroke:'rgba(15,23,42,0.35)',
+        decals:{front:decF, back:decB, left:decL, right:decR}
+      });
+
+      // Ground arcade colonnade pillars along front street
+      if(isGround){
+        for(let i=0;i<=3;i++){
+          const px=bx0+0.22+i*(bW-0.44)/3;
+          addBox(px-0.22, wy0, bz1-0.25, px+0.22, wy1, bz1+0.12, stage===1?'#94a3b8':st.accent, {alpha:al,dim:dimF,stroke:'rgba(15,23,42,0.35)'});
+        }
+      }
+    } else {
+      // RESIDENTIAL APARTMENT FLOOR (2nd Floor upward)
+      const wallC = stage===1 ? '#cbd5e1' : ((st.balType==='box' && idx%2===1) ? st.wall2 : st.wall);
+      const sideC = stage===1 ? '#94a3b8' : st.wall2;
+      const winC  = stage===1 ? '#475569' : glassCol;
+      const decF=[], decB=[], decL=[], decR=[];
+
+      // Central vertical circulation core strip (elevator/stair glazing) on front & back
+      const midX=(bx0+bx1)*0.5;
+      decF.push(zFront(midX-0.55,wy0+0.05,midX+0.55,wy1-0.05,bz1, stage===1?'#64748b':st.podium, '#94a3b8'));
+      decB.push(zBack(midX-0.75,wy0+0.05,midX+0.75,wy1-0.05,bz0, winC, '#93c5fd', night&&stage===2));
+
+      // Left & Right Apartment Wings on Front facade: Sliding balcony doors + living room windows
+      const wingW=(bW*0.5)-0.9;
+      [[bx0+0.35, midX-0.75], [midX+0.75, bx1-0.35]].forEach(([uA,uB],wIdx)=>{
+        const uw=uB-uA;
+        // Balcony sliding glass door
+        decF.push(zFront(uA+uw*0.12,wy0+0.12,uA+uw*0.58,wy1-0.28,bz1, winC, '#e0f2fe', night&&stage===2));
+        // Adjacent bedroom/living window
+        decF.push(zFront(uA+uw*0.66,wy0+0.75,uA+uw*0.92,wy1-0.32,bz1, winC, '#e0f2fe', night&&stage===2));
+        // Vertical Alucobond / terracotta accent fin between windows in Full stage
+        if(stage===2){
+          decF.push(zFront(uA+uw*0.59,wy0+0.05,uA+uw*0.64,wy1-0.05,bz1, st.fin, null));
+        }
+        // Back bedroom windows
+        decB.push(zBack(uA+uw*0.15,wy0+0.8,uA+uw*0.48,wy1-0.35,bz0, winC, '#cbd5e1', night&&stage===2));
+        decB.push(zBack(uA+uw*0.58,wy0+0.8,uA+uw*0.88,wy1-0.35,bz0, winC, '#cbd5e1', night&&stage===2));
+      });
+
+      // Side apartment windows (3 bedroom/kitchen windows per side)
+      for(let j=0;j<3;j++){
+        const zA=bz0+0.8+j*(bD-1.6)/3+0.25, zB=bz0+0.8+(j+1)*(bD-1.6)/3-0.25;
+        decL.push(xLeft(zA,wy0+0.78,zB,wy1-0.32,bx0, winC, '#cbd5e1', night&&stage===2));
+        decR.push(xRight(zA,wy0+0.78,zB,wy1-0.32,bx1, winC, '#cbd5e1', night&&stage===2));
+      }
+
+      addBox(bx0, wy0, bz0, bx1, wy1, bz1, {front:wallC,back:wallC,left:sideC,right:sideC,top:V3D.explode>0.05?sideC:null}, {
+        alpha:al, dim:dimF, stroke:'rgba(15,23,42,0.25)',
+        decals:{front:decF, back:decB, left:decL, right:decR}
+      });
+
+      // 3D CANTILEVERED BALCONIES ON RESIDENTIAL FLOORS
+      const balDepth = 1.28;
+      const bzBal = bz1 + balDepth;
+      const railCol = stage===1 ? '#94a3b8' : st.rail;
+      const railAlpha = stage===1 ? (al*0.85) : (al*0.58);
+
+      if(st.balType==='ribbon'){
+        // Full-width panoramic ribbon balcony across front
+        addBox(bx0+0.3, y0, bz1, bx1-0.3, y0+0.22, bzBal, stage===1?'#94a3b8':st.wall2, {alpha:al,dim:dimF,stroke:'rgba(15,23,42,0.3)'});
+        addBox(bx0+0.3, y0+0.22, bzBal-0.08, bx1-0.3, y0+1.18, bzBal, railCol, {alpha:railAlpha,dim:dimF,stroke:'#e0f2fe'});
+      } else {
+        // Twin Left & Right Apartment Balconies
+        const shift = (st.balType==='box' && idx%2===1) ? 0.35 : 0;
+        [[bx0+0.35+shift, midX-0.75], [midX+0.75, bx1-0.35-shift]].forEach(([uA,uB],wIdx)=>{
+          // Balcony slab
+          addBox(uA, y0, bz1, uB, y0+0.22, bzBal, stage===1?'#94a3b8':st.accent, {alpha:al,dim:dimF,stroke:'rgba(15,23,42,0.3)'});
+          // Glass balustrade front & outer side
+          addBox(uA, y0+0.22, bzBal-0.08, uB, y0+1.16, bzBal, railCol, {alpha:railAlpha,dim:dimF,stroke:'#e0f2fe'});
+          if(st.balType==='wrap'){
+            // Corner wrap-around balcony extension on outer edge
+            const xOut = wIdx===0 ? bx0-0.95 : bx1;
+            const xIn  = wIdx===0 ? bx0 : bx1+0.95;
+            addBox(xOut, y0, bz1-bD*0.32, xIn, y0+0.22, bzBal, stage===1?'#94a3b8':st.accent, {alpha:al,dim:dimF});
+          }
+          // Balcony greenery planter in Style 3 & 4
+          if(st.planters && stage===2){
+            addBox(uA+0.15, y0+0.22, bzBal-0.32, uA+1.1, y0+0.68, bzBal-0.09, '#15803d', {alpha:al,dim:dimF});
+          }
+        });
+      }
+    }
+  });
+
+  // 4. ROOFTOP TERRACE, PARAPET, ELEVATOR PENTHOUSE & WATER TANKS
+  const dimR=isZoneDim('ROOF');
+  const alR=dimR?0.2:1;
+  // Roof slab
+  addBox(bx0-0.25, roofY0, bz0-0.25, bx1+0.25, roofY0+0.3, bz1+0.25, stage===0?'#94a3b8':st.podium, {alpha:alR,dim:dimR,stroke:'rgba(15,23,42,0.3)'});
+  // Perimeter parapet walls (4 sides)
+  const pH=1.05, pT=0.25, pCol=stage===0?'#94a3b8':(stage===1?'#cbd5e1':st.wall);
+  addBox(bx0, roofY0+0.3, bz1-pT, bx1, roofY0+0.3+pH, bz1, pCol, {alpha:alR,dim:dimR});
+  addBox(bx0, roofY0+0.3, bz0, bx1, roofY0+0.3+pH, bz0+pT, pCol, {alpha:alR,dim:dimR});
+  addBox(bx0, roofY0+0.3, bz0+pT, bx0+pT, roofY0+0.3+pH, bz1-pT, pCol, {alpha:alR,dim:dimR});
+  addBox(bx1-pT, roofY0+0.3, bz0+pT, bx1, roofY0+0.3+pH, bz1-pT, pCol, {alpha:alR,dim:dimR});
+
+  // Elevator & Stair Penthouse on roof
+  const midX=(bx0+bx1)*0.5;
+  const phH = g.elev ? 2.8 : 2.1;
+  addBox(midX-bW*0.16, roofY0+0.3, bz0+0.6, midX+bW*0.16, roofY0+0.3+phH, bz0+bD*0.38, stage===0?'#64748b':st.podium, {
+    alpha:alR, dim:dimR, stroke:'rgba(15,23,42,0.35)'
+  });
+  // Twin Blue Water Tanks on top of penthouse/platform
+  if(stage>=1){
+    addBox(midX-1.35, roofY0+0.3+phH, bz0+1.1, midX-0.2, roofY0+0.3+phH+1.45, bz0+2.25, '#0284c7', {alpha:alR,dim:dimR,stroke:'#bae6fd'});
+    addBox(midX+0.2, roofY0+0.3+phH, bz0+1.1, midX+1.35, roofY0+0.3+phH+1.45, bz0+2.25, '#0284c7', {alpha:alR,dim:dimR,stroke:'#bae6fd'});
+  }
+  // Rooftop Pergola Canopy in Full stage
+  if(stage===2){
+    const pgY=roofY0+0.3+2.35;
+    addBox(bx0+0.8, pgY, bz1-bD*0.42, bx1-0.8, pgY+0.22, bz1-0.4, st.accent, {alpha:alR,dim:dimR});
+    addBox(bx0+0.9, roofY0+0.3, bz1-0.65, bx0+1.18, pgY, bz1-0.4, st.podium, {alpha:alR,dim:dimR});
+    addBox(bx1-1.18, roofY0+0.3, bz1-0.65, bx1-0.9, pgY, bz1-0.4, st.podium, {alpha:alR,dim:dimR});
+  }
+
+  // 5. STREET CONTEXT: TREES & CARS ON ATENA TERA ROAD (when Full stage)
+  if(stage===2){
+    // 2 Street Trees on sidewalk
+    [-hx+1.4, hx-1.4].forEach(tx=>{
+      const tz=hz+0.9;
+      addBox(tx-0.18, 0.04, tz-0.18, tx+0.18, 1.5, tz+0.18, '#78350f', {});
+      addBox(tx-0.95, 1.5, tz-0.95, tx+0.95, 3.3, tz+0.95, '#15803d', {stroke:'#166534'});
+      addBox(tx-0.65, 3.3, tz-0.65, tx+0.65, 4.1, tz+0.65, '#22c55e', {});
+    });
+    // Addis Blue & White Minibus Taxi on road
+    const tx0=-3.8, tx1=-0.4, tz0=hz+2.4, tz1=hz+3.95;
+    addBox(tx0, 0.15, tz0, tx1, 0.95, tz1, '#0284c7', {});
+    addBox(tx0+0.2, 0.95, tz0+0.1, tx1-0.15, 1.65, tz1-0.1, '#f8fafc', {stroke:'#0284c7'});
+    // Silver car on the other lane
+    const cx0=1.6, cx1=4.5, cz0=hz+4.65, cz1=hz+6.0;
+    addBox(cx0, 0.15, cz0, cx1, 0.78, cz1, '#94a3b8', {});
+    addBox(cx0+0.55, 0.78, cz0+0.12, cx1-0.65, 1.32, cz1-0.12, '#cbd5e1', {});
+  }
+
+  // Painter's sort: draw back-to-front by camera Z
+  faces.sort((a,b)=>b.z - a.z);
+
+  faces.forEach(f=>{
+    ctx.beginPath();
+    ctx.moveTo(f.pts[0].x, f.pts[0].y);
+    for(let i=1;i<f.pts.length;i++) ctx.lineTo(f.pts[i].x, f.pts[i].y);
+    ctx.closePath();
+    ctx.fillStyle=f.fill;
+    ctx.fill();
+    if(f.stroke){
+      ctx.strokeStyle=f.stroke;
+      ctx.lineWidth=f.lineW;
+      ctx.stroke();
+    }
+    // Draw coplanar surface decals (windows, shopfronts, shutters, fins) immediately on top!
+    if(f.decals && f.decals.length){
+      f.decals.forEach(dc=>{
+        ctx.beginPath();
+        ctx.moveTo(dc.pts[0].x, dc.pts[0].y);
+        for(let i=1;i<dc.pts.length;i++) ctx.lineTo(dc.pts[i].x, dc.pts[i].y);
+        ctx.closePath();
+        ctx.fillStyle=dc.fill;
+        ctx.fill();
+        if(dc.stroke){
+          ctx.strokeStyle=dc.stroke;
+          ctx.lineWidth=0.65;
+          ctx.stroke();
+        }
+      });
+    }
+  });
+
+  // 6. 3D FLOATING DIMENSION & ZONE CALLOUT LABELS
+  ctx.font='700 11px system-ui,-apple-system,sans-serif';
+  const drawTag=(x,y,z,txt,bg)=>{
+    const p=proj(x,y,z);
+    if(p.x<20||p.x>W-20||p.y<18||p.y>H-18) return;
+    const tw=ctx.measureText(txt).width+12;
+    ctx.fillStyle=bg||'rgba(15,23,42,0.78)';
+    ctx.beginPath();
+    ctx.roundRect(p.x-tw/2,p.y-10,tw,20,6);
+    ctx.fill();
+    ctx.fillStyle='#ffffff';
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.fillText(txt,p.x,p.y);
+  };
+  drawTag(0, 0.1, hz+1.1, am?`${nf(pW,1)}m × ${nf(pD,1)}m (${nf(S.plot)} ካ.ሜ ካርታ)`:`${nf(pW,1)}m × ${nf(pD,1)}m (${nf(S.plot)} m² Karta)`, 'rgba(29,78,216,0.85)');
+  if(cf>0 && floorBands[cf-1]){
+    const yCom = floorBands[cf-1].y1*0.5;
+    drawTag(bx1+0.6, yCom, bz1, am?`ንግድ (G${cf>1?'–'+(cf-1)+'ኛ':''})`:`Commercial`, 'rgba(2,132,199,0.85)');
+  }
+  if(g.above>cf){
+    const yRes = (floorBands[cf].y0 + roofY0)*0.5;
+    drawTag(bx1+0.6, yRes, bz1, am?`መኖሪያ (${cf}ኛ–${g.nF}ኛ)`:`Apartments`, 'rgba(217,119,6,0.88)');
+  }
+
+  ctx.restore();
+}
+
+function tick3D(){
+  V3D.raf=0;
+  let keep=false;
+  if(V3D.spin && V3D.ptrs.size===0){
+    V3D.yaw += 0.0045;
+    keep=true;
+  }
+  if(Math.abs(V3D.explode - V3D.explodeTarget)>0.005){
+    V3D.explode += (V3D.explodeTarget - V3D.explode)*0.18;
+    keep=true;
+  } else {
+    V3D.explode = V3D.explodeTarget;
+  }
+  const tabOn = document.querySelector('.tab[data-tab="3d"]')?.classList.contains('on');
+  if(tabOn){
+    drawArch3D();
+    if(keep) V3D.raf=requestAnimationFrame(tick3D);
+  }
+}
+function kick3D(){
+  if(!V3D.raf) V3D.raf=requestAnimationFrame(tick3D);
+}
+
+function setup3D(){
+  const stg=document.getElementById('v3dStage');
+  if(!stg) return;
+  let lastX=0, lastY=0;
+  stg.addEventListener('pointerdown',e=>{
+    if(e.target.closest('.v3d-hud')) return;
+    stg.setPointerCapture(e.pointerId);
+    V3D.ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    lastX=e.clientX; lastY=e.clientY;
+    if(V3D.ptrs.size===2){
+      const [p1,p2]=[...V3D.ptrs.values()];
+      V3D.pinchDist=Math.hypot(p1.x-p2.x,p1.y-p2.y);
+    }
+    kick3D();
+  });
+  stg.addEventListener('pointermove',e=>{
+    if(!V3D.ptrs.has(e.pointerId)) return;
+    V3D.ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(V3D.ptrs.size===1){
+      const dx=e.clientX-lastX, dy=e.clientY-lastY;
+      lastX=e.clientX; lastY=e.clientY;
+      V3D.yaw += dx*0.009;
+      V3D.pitch = Math.max(0.08, Math.min(1.18, V3D.pitch + dy*0.007));
+      drawArch3D();
+    } else if(V3D.ptrs.size===2){
+      const [p1,p2]=[...V3D.ptrs.values()];
+      const d=Math.hypot(p1.x-p2.x,p1.y-p2.y);
+      if(V3D.pinchDist>10){
+        V3D.zoom = Math.max(0.55, Math.min(2.4, V3D.zoom * (d/V3D.pinchDist)));
+        drawArch3D();
+      }
+      V3D.pinchDist=d;
+    }
+  });
+  const endPtr=e=>{ V3D.ptrs.delete(e.pointerId); kick3D(); };
+  stg.addEventListener('pointerup',endPtr);
+  stg.addEventListener('pointercancel',endPtr);
+  stg.addEventListener('wheel',e=>{
+    e.preventDefault();
+    V3D.zoom = Math.max(0.55, Math.min(2.4, V3D.zoom * (e.deltaY<0?1.1:0.91)));
+    drawArch3D();
+  },{passive:false});
+
+  // HUD buttons
+  document.getElementById('v3dZoomIn').addEventListener('click',()=>{ V3D.zoom=Math.min(2.4,V3D.zoom*1.18); drawArch3D(); });
+  document.getElementById('v3dZoomOut').addEventListener('click',()=>{ V3D.zoom=Math.max(0.55,V3D.zoom/1.18); drawArch3D(); });
+  document.getElementById('v3dExplode').addEventListener('click',e=>{
+    V3D.explodeTarget = V3D.explodeTarget>0.1 ? 0 : 1;
+    e.currentTarget.classList.toggle('on', V3D.explodeTarget>0.1);
+    kick3D();
+  });
+  document.getElementById('v3dSpin').addEventListener('click',e=>{
+    V3D.spin = !V3D.spin;
+    e.currentTarget.classList.toggle('on', V3D.spin);
+    kick3D();
+  });
+  document.getElementById('v3dLight').addEventListener('click',e=>{
+    V3D.night = !V3D.night;
+    e.currentTarget.textContent = V3D.night ? '☀️' : '🌙';
+    e.currentTarget.classList.toggle('on', V3D.night);
+    drawArch3D();
+  });
+  document.getElementById('v3dReset').addEventListener('click',()=>{
+    V3D.yaw=-0.62; V3D.pitch=0.38; V3D.zoom=1.0; V3D.explodeTarget=0; V3D.selFloor='all';
+    document.getElementById('v3dExplode').classList.remove('on');
+    render3DUI(compute());
+  });
+
+  // Generate / Switch Design Proposal
+  document.getElementById('btnGen3d').addEventListener('click',()=>{
+    S.archStyle = ((S.archStyle||0)+1)%ARCH_STYLES.length;
+    V3D.yaw = -0.58 + (S.archStyle*0.35);
+    renderAll(); saveState();
+    const st=ARCH_STYLES[S.archStyle];
+    toast(isAm()?st.am:st.en);
+  });
+  document.querySelectorAll('#styleChips .chip').forEach(b=>b.addEventListener('click',()=>{
+    S.archStyle=+b.dataset.st;
+    renderAll(); saveState();
+  }));
+  document.querySelectorAll('#stage3dSeg button').forEach(b=>b.addEventListener('click',()=>{
+    V3D.stage=+b.dataset.st;
+    render3DUI(compute());
+  }));
+  document.querySelectorAll('#comSeg3d button').forEach(b=>b.addEventListener('click',()=>{
+    S.comFloors=+b.dataset.cf;
+    syncInputs(['comFloors']);
+    renderAll(); saveState();
+  }));
+  const cta=document.getElementById('btnOpen3d');
+  if(cta) cta.addEventListener('click',()=>{
+    const b=document.querySelector('#tabs button[data-tab="3d"]');
+    if(b) b.click();
+  });
+}
+
+loadState(); bindInputs(); syncInputs(); setupDrag(); setup3D(); renderHistory(); renderAll();
 </script>
 </body>
 </html>
