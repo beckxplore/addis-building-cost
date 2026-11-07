@@ -163,7 +163,9 @@ table.boq td.src{font-size:11.5px;color:var(--xmut);max-width:240px}
 .cta3d span.sub{display:block;font-size:11.5px;font-weight:600;color:#3b82f6;margin-top:1px}
 .cta3d .arr{font-size:18px;background:#1d4ed8;color:#fff;width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .v3d-card{padding:0;overflow:hidden;position:relative;background:#0f172a;color:#fff}
-.v3d-top{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;background:rgba(15,23,42,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.1)}
+.v3d-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;background:rgba(15,23,42,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.1)}
+.v3d-top-btns{display:flex;gap:6px;align-items:center;width:100%;margin-top:2px}
+.v3d-top-btns > button{flex:1;justify-content:center}
 .v3d-title{font-size:13px;font-weight:800;color:#f8fafc;line-height:1.25}
 .v3d-sub{font-size:11px;color:#94a3b8;margin-top:1px}
 .btn-gen{border:0;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;padding:8px 12px;border-radius:11px;font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;white-space:nowrap;box-shadow:0 2px 8px rgba(37,99,235,.4);display:inline-flex;align-items:center;gap:5px}
@@ -2001,7 +2003,7 @@ function drawArch3D(){
 
     const fObj={
       pts:p2, fill, stroke:opts.stroke||null, lineW:opts.lineW||0.7,
-      z:dEye - (opts.bias||0), decals, dim:opts.dim||false
+      z:dEye - (opts.bias||0), bias:opts.bias||0, decals, dim:opts.dim||false
     };
     faces.push(fObj);
     return fObj;
@@ -2313,7 +2315,44 @@ function drawArch3D(){
   // Painter's sort: draw back-to-front by camera Z
   faces.sort((a,b)=>b.z - a.z);
 
+  const drawKartaGroundPoly = ()=>{
+    if(!V3D.siteMode) return;
+    const kProj = KARTA.pts.map(p=>Object.assign({}, p, proj(p.lx, 0.06, p.lz)));
+    ctx.save();
+    ctx.beginPath();
+    kProj.forEach((kp,idx)=>{ if(idx===0) ctx.moveTo(kp.x,kp.y); else ctx.lineTo(kp.x,kp.y); });
+    ctx.closePath();
+    ctx.fillStyle='rgba(16,185,129,0.18)';
+    ctx.fill();
+    ctx.strokeStyle='#facc15';
+    ctx.lineWidth=2.4;
+    ctx.setLineDash([6,3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    kProj.forEach(kp=>{
+      ctx.beginPath();
+      ctx.arc(kp.x, kp.y, kp.corner?4.5:2.5, 0, Math.PI*2);
+      ctx.fillStyle = kp.corner ? '#facc15' : '#38bdf8';
+      ctx.fill();
+      ctx.strokeStyle='#0f172a';
+      ctx.lineWidth=1.2;
+      ctx.stroke();
+      if(kp.corner){
+        ctx.font='800 10px system-ui,sans-serif';
+        ctx.fillStyle='#fef08a';
+        ctx.textAlign='center';
+        ctx.fillText(`P${kp.id}`, kp.x, kp.y-8);
+      }
+    });
+    ctx.restore();
+  };
+
+  let kartaDrawn=false;
   faces.forEach(f=>{
+    if(!kartaDrawn && f.bias > -12){
+      drawKartaGroundPoly();
+      kartaDrawn=true;
+    }
     ctx.beginPath();
     ctx.moveTo(f.pts[0].x, f.pts[0].y);
     for(let i=1;i<f.pts.length;i++) ctx.lineTo(f.pts[i].x, f.pts[i].y);
@@ -2342,6 +2381,7 @@ function drawArch3D(){
       });
     }
   });
+  if(!kartaDrawn) drawKartaGroundPoly();
 
   // 6. 3D FLOATING DIMENSION, KARTA SURVEY BOUNDARY & ZONE CALLOUT LABELS
   ctx.font='700 11px system-ui,-apple-system,sans-serif';
@@ -2360,39 +2400,9 @@ function drawArch3D(){
   };
 
   if(V3D.siteMode){
-    // Draw the exact 15-point Karta survey polygon (UPIN AA000021000533) on the 3D ground plane!
-    const kProj = KARTA.pts.map(p=>Object.assign({}, p, proj(p.lx, 0.08, p.lz)));
-    ctx.save();
-    ctx.beginPath();
-    kProj.forEach((kp,idx)=>{ if(idx===0) ctx.moveTo(kp.x,kp.y); else ctx.lineTo(kp.x,kp.y); });
-    ctx.closePath();
-    ctx.strokeStyle='#facc15';
-    ctx.lineWidth=2.4;
-    ctx.setLineDash([6,3]);
-    ctx.stroke();
-    ctx.setLineDash([]);
-    // Draw all 15 survey beacons + corner ID tags (P1 NW, P6 SW, P12 SE, P15 NE)
-    kProj.forEach(kp=>{
-      ctx.beginPath();
-      ctx.arc(kp.x, kp.y, kp.corner?4.5:2.5, 0, Math.PI*2);
-      ctx.fillStyle = kp.corner ? '#facc15' : '#38bdf8';
-      ctx.fill();
-      ctx.strokeStyle='#0f172a';
-      ctx.lineWidth=1.2;
-      ctx.stroke();
-      if(kp.corner){
-        ctx.font='800 10px system-ui,sans-serif';
-        ctx.fillStyle='#fef08a';
-        ctx.textAlign='center';
-        ctx.fillText(`P${kp.id}`, kp.x, kp.y-8);
-      }
-    });
-    ctx.restore();
-    ctx.font='700 11px system-ui,-apple-system,sans-serif';
-    drawTag(0, 0.15, hz+3.4, am?`🛣 መንገድ ${KARTA.street} (15.44m የፊት ገጽታ)`:`🛣 Street ${KARTA.street} (15.44m Frontage)`, 'rgba(4,120,87,0.92)');
+    drawTag(0, 0.15, hz+3.2, am?`🛣 መንገድ ${KARTA.street} (15.44m)`:`🛣 Street ${KARTA.street} (15.44m)`, 'rgba(4,120,87,0.92)');
     drawTag(-hx-1.2, 0.2, 0, am?'ምዕራብ 23.40m':'West 23.40m', 'rgba(15,23,42,0.82)');
     drawTag(hx+1.2, 0.2, 0, am?'ምሥራቅ 20.97m':'East 20.97m', 'rgba(15,23,42,0.82)');
-    drawTag(0, 0.2, -hz-1.2, am?'⬆ ሰሜን (North) · 14.26m':'⬆ North · 14.26m', 'rgba(29,78,216,0.88)');
   } else {
     drawTag(0, 0.1, hz+1.1, am?`${nf(pW,1)}m × ${nf(pD,1)}m (${nf(S.plot)} ካ.ሜ ካርታ)`:`${nf(pW,1)}m × ${nf(pD,1)}m (${nf(S.plot)} m² Karta)`, 'rgba(29,78,216,0.85)');
   }
